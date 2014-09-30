@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="フリーソフトでつくる音声認識システム 4章">
+		<meta name="author" content="2GMon">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h3>フリーソフトでつくる音声認識システム</h3>
+					<h3>4章</h3>
+					<p>
+                    <small>Created by <a href="https://twitter.com/2GMon">2GMon</a></small>
+					</p>
+				</section>
+
+				<section data-markdown="introduction.markdown"
+					data-separator="^\n---\n$"
+					data-vertical="^\n--\n$">
+				</section>
+
+				<section>
+					<section>
+						<h2>NN法の定式化</h2>
+					</section>
+
+					<section>
+						<h3>NN法とは</h3>
+						<ol>
+							<li>各クラスにプロトタイプベクトルを用意する</li>
+							<li>入力ベクトルとプロトタイプの距離を測る</li>
+							<li>最も近いプロトタイプの属するクラスを認識結果とする</li>
+						</ol>
+					</section>
+
+					<section>
+						<h3>距離</h3>
+						<ul>
+							<li>クラス $\omega_1, \cdots, \omega_c$</li>
+							<li>クラス $\omega_i$ のプロトタイプベクトル ${\bf p}_i = (p_{i1}, p_{i2}, \cdots, p_{id})$</li>
+							<li>入力ベクトル ${\bf x} = (x_1, x_2, \cdots, x_d)^T$</li>
+						</ul>
+						<br /><br />
+						<p>とした場合に</p>
+						<p>$$ D({\bf x}, {\bf p_i}) = \sqrt{\mathstrut (x_1 - p_1)^2 + (x_2 - p_2) + \cdots + (x_d - p_d)^2} $$</p>
+					</section>
+
+					<section>
+						<h3>最小距離</h3>
+						<ul>
+							<li>距離の最小値 $\min D({\bf x}, {\bf p}_i) \;\; (i = 1, \cdots , c)$</li>
+                            <li>距離が最小のプロトタイプ $argmin_i D({\bf x}, {\bf p}_i) \;\;(i = 1, \cdots , c)$</li>
+						</ul>
+					</section>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/math/math.js', async: true },
+					{ src: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
