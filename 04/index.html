@@ -1,3 +1,5 @@
+<!-- vim: foldmethod=marker
+-->
 <!doctype html>
 <html lang="en">
 
@@ -51,6 +53,7 @@
                     </p>
                 </section>
 
+                <!-- 4.1 -->
                 <section>
                     <h3>話の流れ</h3>
 
@@ -62,6 +65,7 @@
                     </ul>
                 </section>
 
+                <!-- 4.1.1 -->
                 <section>
                     <section>
                         <h2>NN法の定式化</h2>
@@ -85,7 +89,8 @@
                         </ul>
                         <br /><br />
                         <p>とした場合に</p>
-                        <p style="font-size: 90%;">$$ D({\bf x}, {\bf p_i}) = \sqrt{\mathstrut (x_1 - p_1)^2 + (x_2 - p_2) + \cdots + (x_d - p_d)^2} $$</p>
+                        <p class="fragment" style="font-size: 90%;">$$ D({\bf x}, {\bf p_i}) = \sqrt{\mathstrut (x_1 - p_1)^2 + (x_2 - p_2) + \cdots + (x_d - p_d)^2} $$</p>
+                        <p class="fragment">この単純なユークリッド距離を利用するのは問題があるが、今回はこのままにする。問題については7章で詳しく述べられる</p>
                     </section>
 
                     <section>
@@ -94,10 +99,63 @@
                             <li>距離の最小値 <span style="font-size: 80%;">$\min D({\bf x}, {\bf p}_i) \;\; (i = 1, \cdots , c)$</span></li>
                             <li>距離が最小のプロトタイプ <span style="font-size: 80%;">$\text{argmin}_i \: D({\bf x}, {\bf p}_i) \;\;(i = 1, \cdots , c)$</span></li>
                         </ul>
+                        <br /><br />
+                        <p>これでNN法の定式化ができた</p>
+                    </section>
+
+                    <!-- 4.1.2 -->
+                    <section>
+                        <h3>プロトタイプと決定境界の関係</h3>
+                        <p>NN法を定式化したもの
+                        <span style="font-size: 80%;">$\text{argmin}_i \: D({\bf x}, {\bf p}_i) \;\;(i = 1, \cdots , c)$</span>
+                        は何をしているのかを考える</p>
+                        <p class="fragment">以下では単純のため、2クラスの識別問題を考えることにする。
+                        さらに、図で説明しやすくするために特徴ベクトルを2次元とする</p>
                     </section>
 
                     <section>
-                        <h3>プロトタイプと決定境界の関係</h3>
+                        <p>NN法とは、ある特徴ベクトル${\bf x}$が入力された時に、${\bf x}$がクラス$\omega_1$のプロトタイプ${\bf p}_1$に近いのか、
+                        クラス$\omega_2$のプロトタイプ${\bf p}_2$に近いのかを求める問題</p>
+                        <p class="fragment">つまり、${\bf p}_1, {\bf p}_2$から等距離にある領域を求め、
+                        ${\bf x}$がその領域のどちら側に履いているかを調べることと同じ</p>
+                    </section>
+
+                    <section>
+                        <p>${\bf p}_1, {\bf p}_2$から等距離にある領域は${\bf p}_1, {\bf p}_2$を結ぶ直線の垂直二等分線である</p>
+                        <p>そして、この直線のことを<span style="color: red;">決定境界</span>や
+                        <span style="color: red;">識別面</span>などと呼ぶ</p>
+                        <div align="center">
+                        <!-- {{{ 決定境界.svg -->
+                        <svg width="480" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+                            <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+
+                            <g>
+                            <title>Layer 1</title>
+                            <rect id="svg_1" height="373" width="392" y="69" x="60" stroke-width="5" stroke="#ffffff" fill="#ffffff"/>
+                            <line id="svg_2" y2="402.69586" x2="101" y1="102" x1="101" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"/>
+                            <line id="svg_3" y2="402" x2="98.86592" y1="402" x1="401" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"/>
+                            <circle opacity="0.65" id="svg_4" r="60.51953" cy="166.5" cx="182.50001" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="2,2" stroke-width="2" stroke="#000000" fill="#a8a4a4"/>
+                            <circle id="svg_6" opacity="0.65" r="60.51953" cy="299" cx="342.50001" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="2,2" stroke-width="2" stroke="#000000" fill="#a8a4a4"/>
+                            <circle id="svg_7" r="2.82813" cy="165" cx="183" opacity="0.65" stroke-linecap="null" stroke-linejoin="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+                            <circle id="svg_8" r="2.82813" cy="297" cx="341.5" opacity="0.65" stroke-linecap="null" stroke-linejoin="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+                            <text id="svg_10" transform="matrix(0.384615, 0, 0, 0.769231, 101.538, 12.9231)" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="405.16614" x="694.10185" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">${\bf p}_1$</text>
+                            <line id="svg_11" y2="297" x2="341" y1="166" x1="184" opacity="0.65" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="5,5" stroke="#000000" fill="none"/>
+                            <line id="svg_12" y2="100" x2="369.00001" y1="358.00001" x1="151" opacity="0.65" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" stroke="#000000" fill="none"/>
+                            <line id="svg_14" y2="231" x2="282" y1="220" x1="270" opacity="0.65" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" stroke="#000000" fill="none"/>
+                            <line id="svg_15" y2="240" x2="271" y1="228" x1="281" opacity="0.65" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" stroke="#000000" fill="none"/>
+                            <text transform="matrix(0.71875, 0, 0, 0.833333, 90.2812, 22.3333)" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_17" y="137" x="417.69565" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">決定境界</text>
+                            <text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_18" y="36" x="217" opacity="0.65" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000"/>
+                            </g>
+                            <foreignObject x="140" y="130" width="50" height="50">
+                            <span style="font-size: 60%; color: black;">${\bf p}_1$</span>
+                            </foreignObject>
+                            <foreignObject x="340" y="270" width="50" height="50">
+                            <span style="font-size: 60%; color: black;">${\bf p}_2$</span>
+                            </foreignObject>
+                        </svg>
+                        <!-- }}} -->
+                        </div>
+                    </section>
                 </section>
 
 			</div>
@@ -137,6 +195,9 @@
 					{ src: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML', async: true }
 				]
 			});
+			Reveal.addEventListener( 'slidechanged', function( event ) {
+				MathJax.Hub.Rerender(event.currentSlide);
+			} );
 
 		</script>
 
