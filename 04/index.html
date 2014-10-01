@@ -89,7 +89,7 @@
                         </ul>
                         <br /><br />
                         <p>とした場合に</p>
-                        <p class="fragment" style="font-size: 90%;">$$ D({\bf x}, {\bf p_i}) = \sqrt{\mathstrut (x_1 - p_1)^2 + (x_2 - p_2) + \cdots + (x_d - p_d)^2} $$</p>
+                        <p class="fragment" style="font-size: 90%;">$$ D({\bf x}, {\bf p_i}) = \sqrt{\mathstrut (x_1 - p_{i1})^2 + (x_2 - p_{i2}) + \cdots + (x_d - p_{id})^2} $$</p>
                         <p class="fragment">この単純なユークリッド距離を利用するのは問題があるが、今回はこのままにする。問題については7章で詳しく述べられる</p>
                     </section>
 
@@ -117,14 +117,14 @@
                         <p>NN法とは、ある特徴ベクトル${\bf x}$が入力された時に、${\bf x}$がクラス$\omega_1$のプロトタイプ${\bf p}_1$に近いのか、
                         クラス$\omega_2$のプロトタイプ${\bf p}_2$に近いのかを求める問題</p>
                         <p class="fragment">つまり、${\bf p}_1, {\bf p}_2$から等距離にある領域を求め、
-                        ${\bf x}$がその領域のどちら側に履いているかを調べることと同じ</p>
+                        ${\bf x}$がその領域のどちら側に入っているかを調べることと同じ</p>
                     </section>
 
                     <section>
                         <p>${\bf p}_1, {\bf p}_2$から等距離にある領域は${\bf p}_1, {\bf p}_2$を結ぶ直線の垂直二等分線である</p>
                         <p>そして、この直線のことを<span style="color: red;">決定境界</span>や
                         <span style="color: red;">識別面</span>などと呼ぶ</p>
-                        <div align="center">
+                        <div>
                         <!-- {{{ 決定境界.svg -->
                         <svg width="480" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" style="margin-top: -50px;">
                             <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
@@ -146,17 +146,19 @@
                             <text transform="matrix(0.71875, 0, 0, 0.833333, 90.2812, 22.3333)" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_17" y="137" x="417.69565" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">決定境界</text>
                             <text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_18" y="36" x="217" opacity="0.65" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000"/>
                             </g>
-                            <foreignObject x="140" y="130" width="50" height="50">
+                            <foreignObject x="150" y="130" width="50" height="50">
                             <span style="font-size: 60%; color: black;">${\bf p}_1$</span>
                             </foreignObject>
-                            <foreignObject x="340" y="270" width="50" height="50">
+                            <foreignObject x="350" y="270" width="50" height="50">
                             <span style="font-size: 60%; color: black;">${\bf p}_2$</span>
                             </foreignObject>
                         </svg>
                         <!-- }}} -->
                         </div>
                         <p class="fragment">プロトタイプが決まると特徴空間が決定境界で分割される</p>
-                        <p class="fragment">プロトタイプを決める = 決定境界を決める</p>
+                        <p class="fragment">
+                        <span style="font-size: 80%;">$\text{argmin}_i \: D({\bf x}, {\bf p}_i) \;\;(i = 1, \cdots , c)$</span>
+                        は決定境界を決めている</p>
                     </section>
                 </section>
 
