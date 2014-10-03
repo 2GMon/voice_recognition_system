@@ -314,7 +314,7 @@
                     </section>
 
                     <section>
-                        <p>決定境界をうまく動かしていく操作を学習という</p>
+                        <p>誤識別をなくすために決定境界をうまく動かしていく操作を学習という</p>
                         <div class="fragment">
                             <!-- {{{ -->
                             <svg width="480" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
@@ -374,6 +374,174 @@
                             <!-- }}} -->
                         </div>
                         <p class="fragment">機械的に学習する方法にパーセプトロンというものがある</p>
+                    </section>
+
+                    <section>
+                        <p>ここでNN法について復習</p>
+                        <p>NN法とは、クラス$\omega_1,\omega_2,\cdots,\omega_c$に対して、プロトタイプ ${\bf p}_1,{\bf p}_2,\cdots,{\bf p}_c$を決め、
+                        入力された特徴ベクトル${\bf x}$との距離が最小となるプロトタイプを求めるもの<p>
+                        <p class="fragment">距離は以下の式で表される
+                        <span style="font-size: 80%;">
+                            $$ \begin{align} D({\bf x}, {\bf p_i}) & = \sqrt{\mathstrut (x_1 - p_{i1})^2 + (x_2 - p_{i2}) + \cdots + (x_d - p_{id})^2} \\
+                            & = \|{\bf x} - {\bf p}_i\|  \;\;\;\;\;\;\;\; (i = 1, \cdots , c) \end{align} $$
+                        </span>
+                        </p>
+                        <p class="fragment">最小となるプロトタイプは以下の式で表される
+                        <span style="font-size: 80%;">
+                            $$ \text{argmin}_i \: D({\bf x}, {\bf p}_i) \;\;\;\;\;\;\;\; (i = 1, \cdots , c) $$
+                        </span>
+                        </p>
+                        <br /><br />
+                        <p class="fragment">学習しやすくするために、この式を別の表現に置き換えていく</p>
+                    </section>
+
+                    <section>
+                        <p>距離は0または正の値なので、距離を2乗しても以下の式が成り立つ
+                        <span style="font-size: 80%;">
+                            $$ \text{argmin}_i \: D({\bf x}, {\bf p}_i) = \text{argmin}_i \: D({\bf x}, {\bf p}_i)^2 $$
+                        </span>
+                        </p>
+                        <p class="fragment">
+                        距離の右辺を2乗して展開すると
+                        <span style="font-size: 80%;">
+                            $$ \begin{align} \|{\bf x} - {\bf p}_i\|^2 & = \|x\|^2 - 2 {\bf p}_i^t {\bf x} + \|{\bf p}_i\|^2 \\
+                            & = \|x\|^2 - 2 \left( {\bf p}_i^t {\bf x} - \frac{1}{2} \|{\bf p}_i\|^2 \right) \end{align} $$
+                        </span>
+                        </p>
+                        <p class="fragment">右辺第1項はどの${\bf p_i}$でも等しいので大小比較に関係ないから無視できる</p>
+                        <p class="fragment">
+                        <span style="font-size: 80%;">
+                        $ g_i({\bf x}) = {\bf p}_i^t {\bf x} - \frac{1}{2} \|{\bf p}_i\|^2 $
+                        </span>
+                        とすると、
+                        <span style="font-size: 80%;">$ \text{argmin}_i \: D({\bf x}, {\bf p}_i) = \text{argmax}_i \; {g_i({\bf x})} $</span>
+                        となる
+                        </p>
+                    </section>
+
+                    <section>
+                        <p><span style="font-size: 80%;">$ g_i({\bf x}) = {\bf p}_i^t {\bf x} - \frac{1}{2} \|{\bf p}_i\|^2 $</span>を<span style="color: red;">識別関数</span>と言い、
+                        各クラス<span style="font-size: 80%;">$\omega_i$</span>に対して識別関数
+                        <span style="font-size: 80%;">$ g_i({\bf x}) $</span>を計算する</p>
+                        <p class="fragment">そして、<span style="font-size: 80%;">$ g_i({\bf x}) $</span>が最大値を取るクラス
+                        <span style="font-size: 80%;">$\omega_i$</span>を出力するのがNN法である<br />
+                        <!-- {{{ -->
+                        <svg width="640" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+                            <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+
+                            <g>
+                            <title>Layer 1</title>
+                            <rect fill="#ffffff" stroke="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="8.99997" y="62" width="593.00002" height="375" id="svg_63"/>
+                            </g>
+                            <g display="inline">
+                            <title>レイヤ 2</title>
+                            <rect fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="168" y="77" width="201" height="48" id="svg_1"/>
+                            <rect fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="168" y="377" width="201" height="48" id="svg_2"/>
+                            <rect fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="308.50003" y="227.49998" width="350" height="48" id="svg_3" transform="rotate(90, 483.5, 251.5)"/>
+                            <g id="svg_13">
+                            <ellipse fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="268.75" cy="156" id="svg_10" rx="3" ry="3"/>
+                            <ellipse fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="268.25" cy="176" rx="3" ry="3" id="svg_11"/>
+                            <ellipse fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="268.25" cy="196" rx="3" ry="3" id="svg_12"/>
+                            </g>
+                            <g id="svg_14">
+                            <ellipse fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="268.75" cy="306" rx="3" ry="3" id="svg_15"/>
+                            <ellipse fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="268.25" cy="326" rx="3" ry="3" id="svg_16"/>
+                            <ellipse fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="268.25" cy="346" rx="3" ry="3" id="svg_17"/>
+                            </g>
+                            <g id="svg_23">
+                            <rect fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="379" y="99.5" width="68" height="3" id="svg_20"/>
+                            <path fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m446.34961,106.00122l5.71564,-10.00311l5.71509,10.00311l-11.43073,0z" id="svg_21" transform="rotate(90, 452.066, 101)"/>
+                            </g>
+                            <g id="svg_24">
+                            <rect fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="378.99805" y="174.5" width="68" height="3" id="svg_25"/>
+                            <path fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m446.34766,181.00122l5.71564,-10.00311l5.71509,10.00311l-11.43073,0z" transform="rotate(90, 452.064, 176)" id="svg_26"/>
+                            </g>
+                            <g id="svg_4">
+                            <rect id="svg_5" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="379" y="248.5" width="68" height="3"/>
+                            <path id="svg_6" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m446.34961,255.00122l5.71564,-10.00311l5.71509,10.00311l-11.43073,0z" transform="rotate(90, 452.066, 250)"/>
+                            </g>
+                            <g id="svg_7">
+                            <rect id="svg_8" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="379" y="324.5" width="68" height="3"/>
+                            <path id="svg_9" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m446.34961,331.00122l5.71564,-10.00311l5.71509,10.00311l-11.43073,0z" transform="rotate(90, 452.066, 326)"/>
+                            </g>
+                            <g id="svg_18">
+                            <rect id="svg_19" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="379" y="399.5" width="68" height="3"/>
+                            <path id="svg_22" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m446.34961,406.00122l5.71564,-10.00311l5.71509,10.00311l-11.43073,0z" transform="rotate(90, 452.066, 401)"/>
+                            </g>
+                            <g id="svg_27">
+                            <rect id="svg_28" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="80.4668" y="99.5" width="68" height="3"/>
+                            <path id="svg_29" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m147.81641,106.00122l5.71564,-10.00311l5.7151,10.00311l-11.43074,0z" transform="rotate(90, 153.533, 101)"/>
+                            </g>
+                            <g id="svg_30">
+                            <rect id="svg_31" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="80.46485" y="174.5" width="68" height="3"/>
+                            <path id="svg_32" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m147.81445,181.00122l5.71564,-10.00311l5.71509,10.00311l-11.43073,0z" transform="rotate(90, 153.531, 176)"/>
+                            </g>
+                            <g id="svg_36">
+                            <rect id="svg_37" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="80.4668" y="324.5" width="68" height="3"/>
+                            <path id="svg_38" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m147.81641,331.00122l5.71564,-10.00311l5.7151,10.00311l-11.43074,0z" transform="rotate(90, 153.533, 326)"/>
+                            </g>
+                            <g id="svg_39">
+                            <rect id="svg_40" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="80.4668" y="399.5" width="68" height="3"/>
+                            <path id="svg_41" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m147.81641,406.00122l5.71564,-10.00311l5.7151,10.00311l-11.43074,0z" transform="rotate(90, 153.533, 401)"/>
+                            </g>
+                            <rect id="svg_43" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="59.49946" y="248.5" width="19" height="3"/>
+                            <g id="svg_44">
+                            <rect id="svg_34" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="80.4668" y="248.5" width="68" height="3"/>
+                            <path id="svg_35" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m147.81641,255.00122l5.71564,-10.00311l5.7151,10.00311l-11.43074,0z" transform="rotate(90, 153.533, 250)"/>
+                            </g>
+                            <rect transform="rotate(90, 81.492, 248.5)" id="svg_45" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="-68.00858" y="247" width="299.00001" height="3"/>
+                            <rect fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="168" y="227" width="201" height="48" id="svg_33"/>
+                            <rect id="svg_42" height="0" width="0" y="245" x="489" opacity="0.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="none"/>
+                            <rect id="svg_46" height="0" width="0" y="180" x="544" opacity="0.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="none"/>
+                            <g id="svg_49">
+                            <text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_47" y="120" x="483.25" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">最</text>
+                            <text id="svg_48" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="145" x="483.25" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">大</text>
+                            <text id="svg_50" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="169" x="483.25" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">値</text>
+                            <text id="svg_52" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="195" x="483.25" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">と</text>
+                            <text id="svg_53" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="221" x="483.25" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">な</text>
+                            <text id="svg_54" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="248" x="483.25" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">る</text>
+                            <text id="svg_55" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="274" x="483.25" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">ク</text>
+                            <text id="svg_56" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="298" x="483.25" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">ラ</text>
+                            <text id="svg_57" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="324" x="483.25" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">ス</text>
+                            <text id="svg_58" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="349" x="483.25" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">を</text>
+                            <text id="svg_59" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="376" x="483.25" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">選</text>
+                            <text id="svg_60" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="400" x="483.25" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">択</text>
+                            </g>
+                            <g id="svg_51">
+                            <rect fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="513.4668" y="153.5" width="68" height="3" id="svg_61"/>
+                            <path fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m580.81641,160.00122l5.71564,-10.00311l5.71509,10.00311l-11.43073,0z" transform="rotate(90, 586.533, 155)" id="svg_62"/>
+                            </g>
+                            </g>
+                            <g>
+                            <title>レイヤ 3</title>
+                            <foreignObject id="svg_63" height="50" width="50" y="70" x="255">
+                            <span style="font-size: 60%; color: black;"> $g_1$ </span>
+                            </foreignObject>
+                            <foreignObject id="svg_64" height="50" width="50" y="220" x="255">
+                            <span style="font-size: 60%; color: black;"> $g_i$ </span>
+                            </foreignObject>
+                            <foreignObject id="svg_65" height="50" width="50" y="370" x="255">
+                            <span style="font-size: 60%; color: black;"> $g_c$ </span>
+                            </foreignObject>
+                            <foreignObject id="svg_66" height="50" width="60" y="50" x="389.5">
+                            <span style="font-size: 60%; color: black;"> $g_1(x)$ </span>
+                            </foreignObject>
+                            <foreignObject id="svg_67" height="50" width="60" y="200" x="389.5">
+                            <span style="font-size: 60%; color: black;"> $g_i(x)$ </span>
+                            </foreignObject>
+                            <foreignObject id="svg_68" height="50" width="60" y="350" x="389.5">
+                            <span style="font-size: 60%; color: black;"> $g_c(x)$ </span>
+                            </foreignObject>
+                            <foreignObject id="svg_69" height="50" width="50" y="150" x="540">
+                            <span style="font-size: 60%; color: black;"> $\omega_k$ </span>
+                            </foreignObject>
+                            <foreignObject id="svg_70" height="50" width="50" y="220" x="30">
+                            <span style="font-size: 60%; color: black;"> ${\bf x}$ </span>
+                            </foreignObject>
+                            </g>
+                        </svg>
+                        <!-- }}} -->
+                        </p>
                     </section>
                 </section>
 
