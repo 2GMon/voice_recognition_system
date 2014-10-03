@@ -304,6 +304,76 @@
                     </section>
                 </section>
 
+                <!-- 4.3 -->
+                <section>
+                    <section>
+                        <h3>パーセプトロンの学習規則</h3>
+                    </section>
+
+                    <section>
+                        <p>決定境界をうまく動かしていく操作を学習という</p>
+                        <div class="fragment">
+                            <!-- {{{ -->
+                            <svg width="480" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+                                <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+
+                                <g>
+                                <title>Layer 1</title>
+                                <rect id="svg_1" height="373" width="392" y="61" x="57" stroke-width="5" stroke="#ffffff" fill="#ffffff"/>
+                                <line id="svg_2" y2="402.69586" x2="101" y1="102" x1="101" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"/>
+                                <line id="svg_3" y2="402" x2="98.86592" y1="402" x1="401" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="5" stroke="#000000" fill="none"/>
+                                <text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_18" y="36" x="217" opacity="0.65" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000"/>
+                                </g>
+                                <g>
+                                <title>レイヤ 2</title>
+                                <ellipse transform="rotate(-42.5529, 202, 191)" ry="54" rx="114" id="svg_4" cy="191" cx="202" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="5,5" stroke="#000000" fill="#dddddd"/>
+                                <ellipse id="svg_5" transform="rotate(-42.5529, 316.5, 298)" ry="54" rx="114" cy="298" cx="316.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="5,5" stroke="#000000" fill="#dddddd"/>
+                                </g>
+                                <g display="inline">
+                                <title>レイヤ 4</title>
+                                <circle id="svg_33" r="3.90234" cy="236" cx="163.5" stroke-linecap="null" stroke-linejoin="null" stroke="#000000" fill="#a0a0a0"/>
+                                <circle id="svg_34" r="3.90234" cy="257" cx="366.5" stroke-linecap="null" stroke-linejoin="null" stroke="#000000" fill="#a0a0a0"/>
+                                <line id="svg_36" y2="257" x2="362" y1="237" x1="168" stroke-linecap="null" stroke-linejoin="null" stroke-width="null" stroke="#000000" fill="none"/>
+                                <line id="svg_37" y2="64" x2="281" y1="415" x1="241" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" stroke="#000000" fill="none"/>
+                                <line y2="71.5" x2="274.5" y1="422.5" x1="234.5" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" stroke="#000000" fill="none" id="svg_21" transform="rotate(41.0415, 254.5, 247)"/>
+                                <circle r="3.90234" cy="186" cx="198.5" stroke-linecap="null" stroke-linejoin="null" stroke="#000000" fill="#a0a0a0" id="svg_35"/>
+                                <circle r="3.90234" cy="301" cx="313.5" stroke-linecap="null" stroke-linejoin="null" stroke="#000000" fill="#a0a0a0" id="svg_40"/>
+                                <line fill="none" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="202" y1="190" x2="311" y2="297" id="svg_41"/>
+                                <path fill="none" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m314.18027,112.48561l10.99951,-42.79816l10.99933,42.79816l-5.49991,0l0,43.00511l-10.99918,0l0,-43.00511l-5.49976,0z" id="svg_42" transform="rotate(121.183, 325.179, 112.587)"/>
+                                <line fill="none" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="-54" y1="41" x2="-55" y2="41" id="svg_52"/>
+                                <g id="svg_69" transform="rotate(-128.313, 340.5, 279)">
+                                <line fill="none" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="340.5" y1="250.99609" x2="340.5" y2="307.00502" id="svg_66"/>
+                                <line fill="none" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="334.5" y1="257.99609" x2="340.5" y2="250.99609" id="svg_67"/>
+                                <line fill="none" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="346.5" y1="257.99609" x2="340.5" y2="251.99609" id="svg_68"/>
+                                </g>
+                                <g id="svg_70" transform="rotate(38.8271, 181.126, 210.605)">
+                                <line fill="none" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="181.12575" y1="184.39675" x2="181.12575" y2="236.81453" id="svg_48"/>
+                                <line fill="none" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="175.12575" y1="190.94793" x2="181.12575" y2="184.39675" id="svg_50"/>
+                                <line fill="none" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="187.12575" y1="190.94793" x2="181.12575" y2="185.33263" id="svg_51"/>
+                                </g>
+                                </g>
+                                <g display="inline">
+                                <title>レイヤ 5</title>
+                                <foreignObject x="145" y="106" width="50" height="50" id="svg_38">
+                                <span style="font-size: 60%; color: black;">$\omega_1$</span>
+                                </foreignObject>
+                                <foreignObject x="347" y="320" width="50" height="50" id="svg_39">
+                                <span style="font-size: 60%; color: black;">$\omega_2$</span>
+                                </foreignObject>
+                                <foreignObject x="210" y="150" width="50" height="50" id="svg_71">
+                                <span style="font-size: 60%; color: black;">${\bf p}_1$</span>
+                                </foreignObject>
+                                <foreignObject x="300" y="290" width="50" height="50" id="svg_72">
+                                <span style="font-size: 60%; color: black;">${\bf p}_2$</span>
+                                </foreignObject>
+                                </g>
+                            </svg>
+                            <!-- }}} -->
+                        </div>
+                        <p class="fragment">機械的に学習する方法にパーセプトロンというものがある</p>
+                    </section>
+                </section>
+
 			</div>
 
 		</div>
