@@ -773,6 +773,228 @@
                     </section>
                 </section>
 
+                <section>
+                    <section>
+                        <h2>パーセプトロンの学習例</h2>
+                    </section>
+
+                    <section>
+                        <p>以下のような問題の識別関数を求める</p>
+                        <ul>
+                            <li>学習データ <span style="font-size: 90%;">$x1 = 1.0, x2 = 0.5, x3 = -0.2, x4 = -1.3$</span></li>
+                            <li>クラス $\{x1, x2\} \in X_1, \{x3, x4\} \in X_2$</li>
+                            <li>重みの初期値 $w_0 = 0.2, w_1 = 0.3$</li>
+                            <li>学習係数 $\rho = 0.5$</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <p>1回めの繰り返し</p>
+                        <!-- {{{ -->
+                        <table>
+                            <tr>
+                                <th>データ</th>
+                                <th>クラス</th>
+                                <th>$x_0$</th>
+                                <th>$x_1$</th>
+                                <th>$w_0$</th>
+                                <th>$w_1$</th>
+                                <th><span style="font-size: 70%;">$g({\bf x}) = x_0 w_0 + x_1 w_1$</span></th>
+                                <th>結果</th>
+                            </tr>
+
+                            <tr>
+                                <td>$x1$</td>
+                                <td>$\omega_1$</td>
+                                <td>1</td>
+                                <td>1.0</td>
+                                <td>0.2</td>
+                                <td>0.3</td>
+                                <td>0.5</td>
+                                <td>正</td>
+                            </tr>
+                            <tr>
+                                <td>$x2$</td>
+                                <td>$\omega_1$</td>
+                                <td>1</td>
+                                <td>0.5</td>
+                                <td>0.2</td>
+                                <td>0.3</td>
+                                <td>0.35</td>
+                                <td>正</td>
+                            </tr>
+                            <tr>
+                                <td>$x3$</td>
+                                <td>$\omega_2$</td>
+                                <td>1</td>
+                                <td>-0.2</td>
+                                <td>0.2</td>
+                                <td>0.3</td>
+                                <td>0.14</td>
+                                <td>誤</td>
+                            </tr>
+                            <tr>
+                                <td>$x4$</td>
+                                <td>$\omega_2$</td>
+                                <td>1</td>
+                                <td>-1.3</td>
+                                <td>-0.3</td>
+                                <td>0.4</td>
+                                <td>-0.82</td>
+                                <td>正</td>
+                            </tr>
+                        </table>
+                        <!-- }}} -->
+                        <br />
+                        <p>$x3$を誤識別しているので重みの修正がおきる</p>
+                        <p>修正式は${\bf w}' = {\bf w} - \rho {\bf x}$なので
+                        <!-- {{{ -->
+                        <span style="font-size: 80%;">
+                            $$ \begin{pmatrix}
+                            w_0 \\
+                            w_1
+                            \end{pmatrix} =
+                            \begin{pmatrix}
+                            0.2 \\
+                            0.3
+                            \end{pmatrix} - 0.5
+                            \begin{pmatrix}
+                            1.0 \\
+                            -0.2
+                            \end{pmatrix} =
+                            \begin{pmatrix}
+                            -0.3 \\
+                            0.4
+                            \end{pmatrix}
+                            $$
+                        </span>
+                        <!-- }}} -->
+                        </p>
+                        <p>修正後の重みで$x4$の識別をする</p>
+                    </section>
+
+                    <section>
+                        <p>2回めの繰り返し</p>
+                        <!-- {{{ -->
+                        <table>
+                            <tr>
+                                <th>データ</th>
+                                <th>クラス</th>
+                                <th>$x_0$</th>
+                                <th>$x_1$</th>
+                                <th>$w_0$</th>
+                                <th>$w_1$</th>
+                                <th><span style="font-size: 70%;">$g({\bf x}) = x_0 w_0 + x_1 w_1 $</span></th>
+                                <th>結果</th>
+                            </tr>
+
+                            <tr>
+                                <td>$x1$</td>
+                                <td>$\omega_1$</td>
+                                <td>1</td>
+                                <td>1.0</td>
+                                <td>-0.3</td>
+                                <td>0.4</td>
+                                <td>0.1</td>
+                                <td>正</td>
+                            </tr>
+                            <tr>
+                                <td>$x2$</td>
+                                <td>$\omega_1$</td>
+                                <td>1</td>
+                                <td>0.5</td>
+                                <td>-0.3</td>
+                                <td>0.4</td>
+                                <td>-0.1</td>
+                                <td>誤</td>
+                            </tr>
+                            <tr>
+                                <td>$x3$</td>
+                                <td>$\omega_2$</td>
+                                <td>1</td>
+                                <td>-0.2</td>
+                                <td>0.2</td>
+                                <td>0.65</td>
+                                <td>0.07</td>
+                                <td>誤</td>
+                            </tr>
+                            <tr>
+                                <td>$x4$</td>
+                                <td>$\omega_2$</td>
+                                <td>1</td>
+                                <td>-1.3</td>
+                                <td>-0.3</td>
+                                <td>0.75</td>
+                                <td>-1.275</td>
+                                <td>正</td>
+                            </tr>
+                        </table>
+                        <!-- }}} -->
+                    </section>
+
+                    <section>
+                        <p>3回めの繰り返し</p>
+                        <!-- {{{ -->
+                        <table>
+                            <tr>
+                                <th>データ</th>
+                                <th>クラス</th>
+                                <th>$x_0$</th>
+                                <th>$x_1$</th>
+                                <th>$w_0$</th>
+                                <th>$w_1$</th>
+                                <th><span style="font-size: 70%;">$g({\bf x}) = x_0 w_0 + x_1 w_1$</span></th>
+                                <th>結果</th>
+                            </tr>
+
+                            <tr>
+                                <td>$x1$</td>
+                                <td>$\omega_1$</td>
+                                <td>1</td>
+                                <td>1.0</td>
+                                <td>-0.3</td>
+                                <td>0.75</td>
+                                <td>0.45</td>
+                                <td>正</td>
+                            </tr>
+                            <tr>
+                                <td>$x2$</td>
+                                <td>$\omega_1$</td>
+                                <td>1</td>
+                                <td>0.5</td>
+                                <td>-0.3</td>
+                                <td>0.75</td>
+                                <td>0.075</td>
+                                <td>正</td>
+                            </tr>
+                            <tr>
+                                <td>$x3$</td>
+                                <td>$\omega_2$</td>
+                                <td>1</td>
+                                <td>-0.2</td>
+                                <td>-0.3</td>
+                                <td>0.75</td>
+                                <td>-0.45</td>
+                                <td>正</td>
+                            </tr>
+                            <tr>
+                                <td>$x4$</td>
+                                <td>$\omega_2$</td>
+                                <td>1</td>
+                                <td>-1.3</td>
+                                <td>-0.3</td>
+                                <td>0.75</td>
+                                <td>-1.275</td>
+                                <td>正</td>
+                            </tr>
+                        </table>
+                        <!-- }}} -->
+                        <br />
+                        <p>全てのデータが正しく識別されたので、ここで終了する。この時得られた識別関数は
+                        $g({\bf x}) = 0.75x - 0.3$となる</p>
+                    </section>
+                </section>
+
 			</div>
 
 		</div>
