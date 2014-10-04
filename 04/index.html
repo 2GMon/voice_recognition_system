@@ -402,20 +402,21 @@
                         </span>
                         </p>
                         <p class="fragment">
-                        距離の右辺を2乗して展開すると
+                        距離<span style="font-size: 80%;">$ D({\bf x}, {\bf p_i}) = \|{\bf x} - {\bf p}_i\| $</span>
+                        の右辺を2乗して展開すると
                         <span style="font-size: 80%;">
                             $$ \begin{align} \|{\bf x} - {\bf p}_i\|^2 & = \|x\|^2 - 2 {\bf p}_i^t {\bf x} + \|{\bf p}_i\|^2 \\
                             & = \|x\|^2 - 2 \left( {\bf p}_i^t {\bf x} - \frac{1}{2} \|{\bf p}_i\|^2 \right) \end{align} $$
                         </span>
                         </p>
-                        <p class="fragment">右辺第1項はどの${\bf p_i}$でも等しいので大小比較に関係ないから無視できる</p>
+                        <p class="fragment">右辺第1項はどの${\bf p_i}$を選んでも等しいので、大小比較時には無視できる</p>
                         <p class="fragment">
                         <span style="font-size: 80%;">
                         $ g_i({\bf x}) = {\bf p}_i^t {\bf x} - \frac{1}{2} \|{\bf p}_i\|^2 $
                         </span>
                         とすると、
-                        <span style="font-size: 80%;">$ \text{argmin}_i \: D({\bf x}, {\bf p}_i) = \text{argmax}_i \; {g_i({\bf x})} $</span>
-                        となる
+                        <span style="font-size: 80%;">$ \text{argmin}_i \: D({\bf x}, {\bf p}_i) $</span>は
+                        <span style="font-size: 80%;">$\text{argmax}_i \; {g_i({\bf x})} $</span>と置き換えられる
                         </p>
                     </section>
 
@@ -424,7 +425,7 @@
                         各クラス<span style="font-size: 80%;">$\omega_i$</span>に対して識別関数
                         <span style="font-size: 80%;">$ g_i({\bf x}) $</span>を計算する</p>
                         <p class="fragment">そして、<span style="font-size: 80%;">$ g_i({\bf x}) $</span>が最大値を取るクラス
-                        <span style="font-size: 80%;">$\omega_i$</span>を出力するのがNN法である<br />
+                        <span style="font-size: 80%;">$\omega_i$</span>を出力するのがNN法による識別である<br />
                         <!-- {{{ -->
                         <svg width="640" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
                             <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
@@ -543,6 +544,206 @@
                         <!-- }}} -->
                         </p>
                     </section>
+
+                    <!-- 4.3.2 -->
+                    <section>
+                        <p>アルゴリズムを適用するために識別関数を変形していく</p>
+                        <p class="fragment"><span style="font-size: 80%;">$$ \begin{align} & p_{ij} = w_{ij} \;\;\;\;\;\;\;\; (j = 1, \cdots, d) \\
+                            & - \frac{1}{2} \|{\bf p}_i\|^2 = w_{i0} \end{align} $$</span>
+                        と置き換えると、以下のようになる
+                        <span style="font-size: 80%;">$$ \begin{align} g_i({\bf x}) & = {\bf p}_i^t {\bf x} - \frac{1}{2} \|{\bf p}_i\|^2 \\
+                            & = w_{i0} + \sum\limits_{j=1}^d w_{ij}x_j \end{align} $$</span>
+                        </p>
+                        <p class="fragment">表記を簡単にするために、$x_0 = 1$とした$d + 1$次元の特徴ベクトルを${\bf x}$とすると、以下のようになる
+                        <span style="font-size: 80%;">
+                            $$ \begin{align} g_i({\bf x}) & = \sum\limits_{j=0}^d w_{ij}x_j = w_{i0} x_0 + w_{i1} x_1 + \cdots + w_{id} x_d \\
+                            & = {\bf w}_i^t {\bf x} \end{align} $$
+                        </span>
+                        $x_0$のことをバイアス項と言う。
+                        </p>
+                    </section>
+
+                    <section>
+                        <p>置き換えに使った${\bf w} = (w_{i0}, w_{i1}, \cdots, w_{id})^t$は<span style="color: red;">重みベクトル</span>
+                        と呼ばれる</p>
+                        <p class="fragment"><span style="font-size: 80%;">$$ \begin{align} & p_{ij} = w_{ij} \;\;\;\;\;\;\;\; (j = 1, \cdots, d) \\
+                            & - \frac{1}{2} \|{\bf p}_i\|^2 = w_{i0} \end{align} $$</span>
+                        なので、重みベクトルはプロトタイプベクトルに<span style="font-size: 80%;">$ w_{i0} = - \frac{1}{2} \|{\bf p}_i\|^2 $</span>
+                        を追加したものである</p>
+                        <p class="fragment"><span style="font-size: 80%;">$ g_i({\bf x}) = {\bf w}_i^t {\bf x} $</span>のような
+                        入力の重み付き線形和と、最大値選択機の組み合わせは<span style="color: red;">パーセプトロン</span>と呼ばれている</p>
+                    </section>
+
+                    <!-- 4.3.3 -->
+                    <section>
+                        <p>与えられた学習データに対して、識別関数$g_i({\bf x})$の重みベクトル${\bf w}$をうまく決定することができれば、
+                        NN法による識別が可能になる</p>
+                        <p class="fragment">学習データの集合を$X$とし、クラス$\omega_i$に属するデータの集合を$X_i$としたときに、
+                        $X_i \;\; (i = 1, \cdots, c)$に属する全ての${\bf x}$に対して以下の式が成り立つように重み${\bf w}$を調整する
+                        <span style="font-size: 80%;">$$ g_i({\bf x}) > g_j({\bf x}) \;\; (j = 1,\cdots,c, \; j \neq i) $$</span></p>
+                    </section>
+
+                    <section>
+                        <p>単純にするために、再び2クラス分類問題の例で説明する</p>
+                        <p class="fragment">2クラス分類の場合は、どちらの識別関数が大きいかの問題になるので、識別関数を以下のように置き換えられる
+                        <span style="font-size: 80%;">
+                            $$g({\bf x}) = g_1({\bf x}) - g_2({\bf x}) = {\bf w}_1^t{\bf x} - {\bf w}_2^t{\bf x} = {\bf w}^t{\bf x}$$
+                        </span>
+                        </p>
+                        <p class="fragment">$g({\bf x}) = 0$となる${\bf x}$は各プロトタイプから等距離なので、決定境界上にある</p>
+                        <p class="fragment">よって、以下の式を満たすように重みベクトル${\bf w}$を調整すれば良い
+                        <span style="font-size: 80%;">
+                            $$ \left\{ \begin{align}
+                            g({\bf x}) & = {\bf w}^t {\bf x} > 0 \;\;\; ({\bf x} \in X_1) \\
+                            g({\bf x}) & = {\bf w}^t {\bf x} < 0 \;\;\; ({\bf x} \in X_2) \end{align} \right. $$
+                        </span>
+                        </p>
+                        <p class="fragment">以降では、重みベクトルを適当に初期化し、ある学習データに対して上の式と異なる結果が出た時のみ、
+                        重みベクトルを修正するアルゴリズムについて考える</p>
+                    </section>
+
+                    <section>
+                        <p>重みベクトル${\bf w}$を要素とする重み空間を考えると、重みベクトルを初期化するということは、
+                        重み空間中の適当な1点を決めること</p>
+                        <p class="fragment">重み空間で${\bf w}^t{\bf x} = 0$という超平面を考えると、
+                        個々の学習データ${\bf x}$に対して超平面${\bf w}^t{\bf x} = 0$が1つ対応する
+                        </p>
+                        <p class="fragment">
+                        ${\bf x} = (1, 1)$の場合、以下の図のようになる
+                        <!-- {{{ -->
+                        <svg width="480" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" style="margin-top: 0px;">
+                            <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+
+                            <g>
+                            <title>Layer 1</title>
+                            <rect fill="#ffffff" stroke="#ffffff" stroke-width="5" x="0" y="0" width="480" height="480" id="svg_2" stroke-opacity="0"/>
+                            </g>
+                            <g>
+                            <title>レイヤ 2</title>
+                            <g id="svg_6">
+                            <line fill="none" stroke="#000000" stroke-width="3" x1="3" y1="239.76563" x2="474.69906" y2="239.76563" id="svg_4"/>
+                            <path fill="#000000" stroke="#000000" stroke-width="3" d="m464.30688,244.26535l5.14166,-8.99789l5.14182,8.99789l-10.28348,0z" id="svg_5" transform="rotate(90, 469.449, 239.766)"/>
+                            </g>
+                            <g id="svg_7" transform="rotate(-90, 243.85, 239.141)">
+                            <line fill="none" stroke="#000000" stroke-width="3" x1="8.00195" y1="239.14062" x2="479.70101" y2="239.14062" id="svg_8"/>
+                            <path fill="#000000" stroke="#000000" stroke-width="3" d="m469.30887,243.6403l5.14166,-8.99789l5.14182,8.99789l-10.28348,0z" transform="rotate(90, 474.45, 239.141)" id="svg_9"/>
+                            </g>
+                            <foreignObject x="250" y="-10" width="50" height="50" id="svg_12">
+                            <span style="font-size: 50%; color: black;">$w_1$</span>
+                            </foreignObject>
+                            <foreignObject x="450" y="230" width="50" height="50" id="svg_13">
+                            <span style="font-size: 50%; color: black;">$w_0$</span>
+                            </foreignObject>
+                            </g>
+                            <g>
+                            <title>レイヤ 3</title>
+                            <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="7.99997" y1="3.33338" x2="474.6667" y2="470.6667" id="svg_10"/>
+                            <foreignObject x="5" y="50" width="80" height="50" id="svg_11">
+                            <span style="font-size: 50%; color: black;">${\bf w}^t{\bf x} = 0$</span>
+                            </foreignObject>
+                            </g>
+                            <g>
+                            <title>レイヤ 4</title>
+                            <path opacity="0.2" transform="rotate(45, 358.34, 118.82)" id="svg_3" d="m27.18684,284.54007l331.15276,-331.4378l331.15234,331.4378l-662.30511,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" stroke="#000000" fill="#b2b2b2"/>
+                            <foreignObject id="svg_13" height="50" width="240" y="80" x="245">
+                            <span style="font-size: 50%; color: black;">
+                                ${\bf w}^t{\bf x} > 0$を出力する${\bf w}$の領域
+                            </span>
+                            </foreignObject>
+                            <foreignObject id="svg_14" height="50" width="240" y="360" x="5">
+                            <span style="font-size: 50%; color: black;">
+                                ${\bf w}^t{\bf x} < 0$を出力する${\bf w}$の領域
+                            </span>
+                            </foreignObject>
+                            </g>
+                        </svg>
+                        <!-- }}} -->
+                        </p>
+                    </section>
+
+                    <section>
+                        <p>${\bf w}_{(0)}$を使って学習データ${\bf x}$を誤識別した時、${\bf w}_{(0)}$を${\bf w}^t{\bf x} = 0$
+                        の反対側に移動させると正しく識別できる</p>
+                        <p class="fragment">超平面${\bf w}^t{\bf x} = 0$と${\bf x}$は直行するので、${\bf x}$の方向に移動させる</p>
+                        <p class="fragment">
+                        ${\bf x} \in X_1$を誤識別した場合は、以下の図のように${\bf w}_{(0)}$を修正すれば良い<br />
+                        <span>
+                        <!-- {{{ -->
+                        <svg width="480" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" style="margin-top: 0px;">
+                            <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+
+                            <g>
+                            <title>Layer 1</title>
+                            <rect fill="#ffffff" stroke="#ffffff" stroke-width="5" x="0" y="0" width="480" height="480" id="svg_2" stroke-opacity="0"/>
+                            </g>
+                            <g>
+                            <title>レイヤ 2</title>
+                            <g id="svg_6">
+                            <line fill="none" stroke="#000000" stroke-width="3" x1="3" y1="239.76563" x2="474.69906" y2="239.76563" id="svg_4"/>
+                            <path fill="#000000" stroke="#000000" stroke-width="3" d="m464.30688,244.26535l5.14166,-8.99789l5.14182,8.99789l-10.28348,0z" id="svg_5" transform="rotate(90, 469.449, 239.766)"/>
+                            </g>
+                            <g id="svg_7" transform="rotate(-90, 243.85, 239.141)">
+                            <line fill="none" stroke="#000000" stroke-width="3" x1="8.00195" y1="239.14062" x2="479.70101" y2="239.14062" id="svg_8"/>
+                            <path fill="#000000" stroke="#000000" stroke-width="3" d="m469.30887,243.6403l5.14166,-8.99789l5.14182,8.99789l-10.28348,0z" transform="rotate(90, 474.45, 239.141)" id="svg_9"/>
+                            </g>
+                            <foreignObject x="250" y="-10" width="50" height="50" id="svg_12">
+                            <span style="font-size: 50%; color: black;">$w_1$</span>
+                            </foreignObject>
+                            <foreignObject x="450" y="230" width="50" height="50" id="svg_13">
+                            <span style="font-size: 50%; color: black;">$w_0$</span>
+                            </foreignObject>
+                            </g>
+                            <g>
+                            <title>レイヤ 3</title>
+                            <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="7.99997" y1="3.33338" x2="474.6667" y2="470.6667" id="svg_10"/>
+                            <foreignObject x="5" y="50" width="80" height="50" id="svg_11">
+                            <span style="font-size: 50%; color: black;">${\bf w}^t{\bf x} = 0$</span>
+                            </foreignObject>
+                            </g>
+                            <g>
+                            <title>レイヤ 4</title>
+                            <path opacity="0.2" transform="rotate(45, 358.34, 118.82)" id="svg_3" d="m27.18684,284.54007l331.15276,-331.4378l331.15234,331.4378l-662.30511,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" stroke="#000000" fill="#b2b2b2"/>
+                            <foreignObject id="svg_13" height="50" width="240" y="80" x="245">
+                            <span style="font-size: 50%; color: black;">
+                                ${\bf w}^t{\bf x} > 0$を出力する${\bf w}$の領域
+                            </span>
+                            </foreignObject>
+                            <foreignObject id="svg_14" height="50" width="240" y="360" x="5">
+                            <span style="font-size: 50%; color: black;">
+                                ${\bf w}^t{\bf x} < 0$を出力する${\bf w}$の領域
+                            </span>
+                            </foreignObject>
+                            </g>
+                            <g>
+                            <title>レイヤ 5</title>
+                            <foreignObject id="svg_1" x="70" y="130" width="50" height="50">
+                            <span style="font-size: 50%; color: black;">
+                                ${\bf w}_{(0)}$
+                            </span>
+                            </foreignObject>
+                            <ellipse ry="3" rx="3" id="svg_15" cy="146" cx="94" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="#000000"/>
+                            <line id="svg_16" y2="83" x2="156" y1="145" x1="96" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="5,5" stroke-width="null" stroke="#000000" fill="none"/>
+                            <line transform="rotate(45, 131.5, 108.523)" id="svg_17" y2="121.76909" x2="131.49999" y1="95.27825" x1="131.49999" stroke-linecap="null" stroke-linejoin="null" stroke-width="2" stroke="#000000" fill="none"/>
+                            <path transform="rotate(45, 144.926, 94.9531)" id="svg_18" d="m143.4252,99.88896l1.50003,-9.87517l1.50002,9.87517l-3.00005,0z" stroke-linecap="null" stroke-linejoin="null" stroke-width="2" stroke="#000000" fill="none"/>
+                            <foreignObject id="svg_19" x="145" y="80" width="50" height="50">
+                            <span style="font-size: 50%; color: black;">
+                            ${\bf x}$
+                            </span>
+                            </foreignObject>
+                            </g>
+                        </svg>
+                        <!-- }}} -->
+                        </span>
+                        </p>
+                    </section>
+
+                    <section>
+                        <p>重みベクトルを修正する際は1回で正しい領域に移動させる必要はなく、別の学習データに対しても同様に識別を行い、
+                        誤識別が起これば修正するという手順を繰り返せば良い</p>
+                        <p class="fragment">重みベクトルの修正幅を学習係数$\rho$と呼ぶ</p>
+                        <p class="fragment">学習データが線形分離可能であれば、全ての学習データに対して正しい識別結果を出力する領域が存在する。
+                        この領域のことを解領域と言う</p>
+                    </section>
                 </section>
 
 			</div>
@@ -584,8 +785,12 @@
 			});
 			Reveal.addEventListener( 'slidechanged', function( event ) {
 				MathJax.Hub.Rerender(event.currentSlide);
+				// if (event.indexh == 4 && event.indexv == 5) {
+				// 	// Reveal.configure({ center: false });
+				// } else {
+				// 	Reveal.configure({ center: true });
+				// }
 			} );
-
 		</script>
 
 	</body>
