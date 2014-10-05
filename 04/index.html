@@ -995,6 +995,103 @@
                     </section>
                 </section>
 
+                <!-- 4.4 -->
+                <section>
+                    <section><h2>区分的線形識別関数とk-NN法</h2></section>
+
+                    <section>
+                        <p>パーセプトロンの学習規則は学習データが線形分離可能なら識別面を発見できるが、
+                        線形分離できない場合は以下の解決法がある</p>
+                        <ul>
+                            <li>識別面を非線形にする(なめらかに曲げる)</li>
+                            <li>識別面を区分的線形にする(折る)</li>
+                        </ul>
+                        <p>以降では区分的線形による解決法を考える</p>
+                    </section>
+
+                    <section>
+                        <p>区分的線形識別面は複数の平面を組み合わせることでできる</p>
+                        <p>1枚の平面はそれぞれのプロトタイプの垂直二等分線なので、プロトタイプを複数用意すれば良い</p>
+                        <p>これらの複数の平面のうち、識別に関係したところだけを繋げ合わせると区分的線形識別面になる</p>
+                        <p>あるプロトタイプに最も近い他のクラスのプロトタイプとの関係で識別面は決まるので、図の様に組になっている必要はない
+                        <!-- {{{ -->
+                        <svg width="480" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+                            <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+
+                            <g display="inline">
+                            <title>Layer 1</title>
+                            <g id="svg_6">
+                            <rect stroke-opacity="0" id="svg_2" height="398.60355" width="400.99997" y="44.00011" x="40" stroke-width="5" stroke="#000000" fill="#ffffff"/>
+                            <g id="svg_4">
+                            <ellipse transform="matrix(0.866152, 0.756379, -0.866152, 0.756379, 103.494, -254.755)" stroke-opacity="0" ry="52" rx="113" id="svg_1" cy="179.53705" cx="410.64044" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#7f7f7f"/>
+                            <ellipse transform="matrix(0.866152, -0.756379, 0.866152, 0.756379, -240.591, 99.1661)" id="svg_3" stroke-opacity="0" ry="52" rx="113" cy="293.64044" cx="169.96295" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#7f7f7f"/>
+                            </g>
+                            <ellipse stroke-opacity="0" ry="76.68525" rx="47.92828" id="svg_5" cy="341.15547" cx="232.31224" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#b2b2b2"/>
+                            <line id="svg_7" y2="241.30488" x2="233.31075" y1="361.92439" x1="82.33665" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="none"/>
+                            <line id="svg_8" y2="240.50607" x2="233.31075" y1="364.3208" x1="384.28484" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="none"/>
+                            </g>
+                            </g>
+                            <g>
+                            <title>レイヤ 2</title>
+                            <ellipse fill="#cccccc" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" stroke-opacity="0" cx="169" cy="237" id="svg_9" rx="4" ry="4"/>
+                            <ellipse fill="#cccccc" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" stroke-opacity="0" cx="294.5" cy="240" rx="4" ry="4" id="svg_10"/>
+                            <ellipse id="svg_11" fill="#666666" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" stroke-opacity="0" cx="220.5" cy="302" rx="4" ry="4"/>
+                            <ellipse id="svg_12" fill="#666666" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" stroke-opacity="0" cx="243.5" cy="296" rx="4" ry="4"/>
+                            <line id="svg_13" y2="241" x2="173" y1="299" x1="218" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="none"/>
+                            <line id="svg_14" y2="242" x2="292" y1="294" x1="247" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="none"/>
+                            </g>
+                            <g>
+                            <title>レイヤ 3</title>
+                            <foreignObject id="svg_15" x="230" y="50" width="50" height="50">
+                            <span style="font-size: 50%; color: black;">
+                            $\omega_1$
+                            </span>
+                            </foreignObject>
+                            <foreignObject id="svg_16" x="230" y="400" width="50" height="50">
+                            <span style="font-size: 50%; color: black;">
+                            $\omega_2$
+                            </span>
+                            </foreignObject>
+                            <foreignObject id="svg_17" x="145" y="190" width="50" height="50">
+                            <span style="font-size: 50%; color: black;">
+                                ${\bf p}_{11}$
+                            </span>
+                            </foreignObject>
+                            <foreignObject id="svg_18" x="280" y="190" width="50" height="50">
+                            <span style="font-size: 50%; color: black;">
+                                ${\bf p}_{12}$
+                            </span>
+                            </foreignObject>
+                            <foreignObject id="svg_19" x="190" y="280" width="50" height="50">
+                            <span style="font-size: 50%; color: black;">
+                                ${\bf p}_{21}$
+                            </span>
+                            </foreignObject>
+                            <foreignObject id="svg_20" x="240" y="275" width="50" height="50">
+                            <span style="font-size: 50%; color: black;">
+                                ${\bf p}_{22}$
+                            </span>
+                            </foreignObject>
+                            </g>
+                        </svg>
+                        <!-- }}} -->
+                        </p>
+                    </section>
+
+                    <section>
+                        <p>区分的線形識別関数は副次識別関数の数を増やせば、非線形な局面を任意の制度で近似できる</p>
+                        <p>副次識別関数の個数を変えると、重みベクトルの学習をしなおさなければならないが、
+                        必要な副次識別関数の個数は重みベクトルの学習が終わらなければわからないため、区分的線形識別関数の学習は困難である</p>
+                    </section>
+
+                    <section>
+                        <p>プロトタイプの個数を学習せずに、学習データを全てプロトタイプとする1-NN法という方法もある</p>
+                        <p>一番近いプロトタイプだけでなく、$ k $番目に近いプロトタイプを見て、多数決などでクラスを識別するk-NN法という方法もある</p>
+                        <p>一般に$ k $が大きいほど識別境界はなめらかになる傾向がある</p>
+                        <p>k-NN法は学習データが十分にあれば、非線形性を示すデータにも対処できる場合が多い</p>
+                        <p>k-NN法は、新たな学習手法の良さを評価するためのベースラインとして用いられることもある</p>
+                    </section>
+                </section>
 			</div>
 
 		</div>
