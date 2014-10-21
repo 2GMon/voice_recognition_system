@@ -16,12 +16,12 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="./04/css/reveal.min.css">
-		<link rel="stylesheet" href="./04/css/theme/default.css" id="theme">
-		<link rel="stylesheet" href="./04/css/2gmon.css">
+		<link rel="stylesheet" href="/css/reveal.min.css">
+		<link rel="stylesheet" href="/css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="/css/2gmon.css">
 
 		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="./04/lib/css/zenburn.css">
+		<link rel="stylesheet" href="lib/css/zenburn.css">
 
 		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
 		<script>
@@ -29,13 +29,13 @@
 				var link = document.createElement( 'link' );
 				link.rel = 'stylesheet';
 				link.type = 'text/css';
-				link.href = './04/css/print/pdf.css';
+				link.href = 'css/print/pdf.css';
 				document.getElementsByTagName( 'head' )[0].appendChild( link );
 			}
 		</script>
 
 		<!--[if lt IE 9]>
-		<script src="./04/lib/js/html5shiv.js"></script>
+		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
 	</head>
 
@@ -58,8 +58,8 @@
 
 		</div>
 
-		<script src="./04/lib/js/head.min.js"></script>
-		<script src="./04/js/reveal.min.js"></script>
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
 
 		<script>
 
@@ -81,13 +81,13 @@
 
 				// Optional libraries used to extend on reveal.js
 				dependencies: [
-					{ src: './04/lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: './04/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: './04/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: './04/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: './04/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: './04/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: './04/plugin/math/math.js', async: true },
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/math/math.js', async: true },
 					{ src: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML', async: true }
 				]
 			});
