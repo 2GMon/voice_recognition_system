@@ -1,0 +1,225 @@
+<!-- vim: foldmethod=marker
+-->
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="フリーソフトでつくる音声認識システム 4章">
+		<meta name="author" content="2GMon">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="../css/reveal.min.css">
+		<link rel="stylesheet" href="../css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="../css/2gmon.css">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="../lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="../lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+                <section>
+                    <h3>フリーソフトでつくる音声認識システム</h3>
+                    <h3>5章</h3>
+                    <p>
+                    <small>Created by <a href="https://twitter.com/2GMon">2GMon</a></small>
+                    </p>
+                </section>
+
+                <section>
+                    <h3>話の流れ</h3>
+
+                    <ul>
+                        <li>パーセプトロンの問題点</li>
+                        <li>誤差評価に基づく学習</li>
+                        <li>Widrow-Hoffの学習規則</li>
+                        <li>パーセプトロンとWidrow-Hoff</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>パーセプトロンの問題点</h2>
+                    </section>
+
+                    <section>
+                        <p>区分的線形識別関数を使えば線形分離できないデータも識別できるが、過学習してしまう</p>
+                        <p>データの分布が重なっている場合はどうやっても識別できない</p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>誤差評価に基づく学習</h3>
+                    </section>
+
+                    <section>
+                        <p>パーセプトロンは識別結果が誤りの場合に重みを修正する</p>
+                        <p>誤差評価に基づく学習は識別関数の結果と教師信号の誤差が最小になるように重みを修正する</p>
+                        <p>教師信号とは識別関数の望ましい出力値</p>
+                    </section>
+
+                    <section>
+                        <p>誤差評価に基づく学習の定式化の前に記号等の整理をする</p>
+                        <br />
+                        <p>学習データ : ${\bf x}_1, \cdots, {\bf x}_n$</p>
+                        <p>学習データ${\bf x}_p$に対するc個の識別関数の出力 : $g_1({\bf x}_p), \cdots , g_c({\bf x}_p)$</p>
+                        <p>クラス$i$に対する教師信号 : $b_i$</p>
+                    </section>
+
+                    <section>
+                        <p>あるデータ${\bf x}_p$がクラス$i$に属するとき $g_i({\bf x}_p) > g_j({\bf x}_p) \;\;\; (j = 1, \cdots, c, \; j \neq i)$</p>
+                        <p>クラス$i$に属するデータ$p$に対応する教師ベクトル${\bf b}_p$を以下のように定める
+                        $$ {\bf b}_p = \{b_1, b_2, \cdots , b_c\} \;\; (b_i = 1, それ以外は0) $$</p>
+                        <br />
+                        <p>次項から誤差評価に基づく学習の定式化を行う</p>
+                    </section>
+
+                    <section>
+                    <p>データ${\bf x}_p$のクラス$i$に対する誤差は以下の式で定義される$$ \epsilon_{ip} = g_i({\bf x}_p) - {\bf b}_i $$</p>
+                        <p>データ${\bf x}_p$に対する全クラスの誤差の二乗和$J_p$は
+                        $$ \begin{align} J_p & = \frac{1}{2} \sum_{i = 1}^c \epsilon_{ip}^2 \\
+                                             & = \frac{1}{2} \sum_{i = 1}^c (g_i({\bf x}_p) - {\bf b}_p)^2 \\
+                                             & = \frac{1}{2} \sum_{i = 1}^c ({\bf w}_i^t {\bf x}_p - {\bf b}_p)^2 \end{align} $$</p>
+                        <p>誤差は正と負両方あるので二乗和を考える</p>
+                        <p>$\frac{1}{2}$は後で計算するときに便利だからつけているだけ</p>
+                    </section>
+
+                    <section>
+                        <p>全ての学習データに対する誤差の和は
+                        $$ \begin{align} J & = \sum_{p = 1}^n J_p \\
+                                           & = \frac{1}{2} \sum_{p = 1}^n \sum_{i = 1}^c ({\bf w}_i^t {\bf x}_p - {\bf b}_p)^2 \end{align} $$</p>
+                        <p>誤差評価に基づく学習では$ J $が最小になるように重みを修正する</p>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>Widrow-Hoffの学習規則</h3>
+                    </section>
+
+                    <section>
+                        <p>誤差の総和 $ J = \frac{1}{2} \sum_{p = 1}^n \sum_{i = 1}^c ({\bf w}_i^t {\bf x}_p - {\bf b}_p)^2 $
+                        を最小化するためには最急降下法を用いる</p>
+                        <p>この時、重みベクトル${\bf w}$の更新式は${\bf w} = {\bf w} - \rho \frac{\partial J}{\partial {\bf w}} $</p>
+                        <!-- {{{ -->
+                        <svg width="320" height="320" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+                        <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+
+                        <g>
+                        <title>レイヤ 0</title>
+                        <rect id="svg_9" height="321" width="317.99998" y="-1" x="1.00002" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="5,5" stroke="#000000" fill="#ffffff"/>
+                        </g>
+                        <g>
+                        <title>Layer 1</title>
+                        <line fill="none" stroke="#000000" stroke-width="5" x1="23.5" y1="33" x2="23.5" y2="302.15052" id="svg_1"/>
+                        <line fill="none" stroke="#000000" stroke-width="5" x1="5.5" y1="283" x2="298.50171" y2="283" id="svg_2"/>
+                        <text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_4" y="28" x="25" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">J</text>
+                        <text font-weight="bold" style="cursor: move;" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_6" y="276" x="303" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">w</text>
+                        </g>
+                        <g>
+                        <title>レイヤ 2</title>
+                        <path id="svg_3" d="m55,100c79.66666,186 117.33333,189 197,0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="3" stroke="#000000" fill="none"/>
+                        </g>
+                        <g>
+                        <title>レイヤ 3</title>
+                        <line id="svg_5" y2="92" x2="265" y1="261" x1="173" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+                        <line id="svg_7" y2="284.00481" x2="218" y1="180" x1="218" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="5,5" stroke="#000000" fill="none"/>
+                        <foreignObject x="220" y="150" width="50" height="50">
+                            <span style=" color: black;">$\frac{\partial J}{\partial {\bf w}}$</span>
+                        </foreignObject>
+                        <line id="svg_10" fill="none" stroke="#000000" stroke-dasharray="5,5" stroke-linejoin="null" stroke-linecap="null" x1="195" y1="212" x2="195" y2="282.00481"/>
+                        <path transform="rotate(-90, 206.675, 248.951)" id="svg_11" d="m201.67499,248.93054l5,-8.46733l5,8.46733l-2.5,0l0,8.5083l-5,0l0,-8.5083l-2.5,0z" stroke-linecap="null" stroke-linejoin="null" stroke-width="null" stroke="#000000" fill="#000000"/>
+                        </g>
+                        </svg>
+                        <!-- }}} -->
+                    </section>
+
+                    <section>
+                        <p>$$ \begin{align} \frac{\partial J}{\partial {\bf w}} & = \sum_{p = 1}^n \frac{\partial J_p}{\partial {\bf w}} \\
+                                                                                & = \frac{1}{2} \sum_{p = 1}^n \frac{\partial }{\partial {\bf w}} ({\bf w}^t {\bf x}_p - {\bf b}_p)^2 \\
+                                                                                & = \sum_{p = 1}^n ({\bf w}^t {\bf x}_p - {\bf b}_p){\bf x}_p \end{align} $$ なので</p>
+                        <p>$ {\bf w} = {\bf w} - \rho \sum_{p = 1}^n ({\bf w}^t {\bf x}_p - {\bf b}_p){\bf x}_p $</p>
+                    </section>
+                </section>
+			</div>
+
+		</div>
+
+		<script src="../lib/js/head.min.js"></script>
+		<script src="../js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../plugin/math/math.js', async: true },
+					{ src: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML', async: true }
+				]
+			});
+			Reveal.addEventListener( 'slidechanged', function( event ) {
+				MathJax.Hub.Rerender(event.currentSlide);
+				MathJax.Hub.Config({
+					"HTML-CSS": {
+						scale: 80
+					}
+				});
+				// if (event.indexh == 4 && event.indexv == 5) {
+				// 	// Reveal.configure({ center: false });
+				// } else {
+				// 	Reveal.configure({ center: true });
+				// }
+			} );
+		</script>
+
+	</body>
+</html>
