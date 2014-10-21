@@ -169,6 +169,36 @@
                         <p>$ {\bf w} = {\bf w} - \rho \sum_{p = 1}^n ({\bf w}^t {\bf x}_p - {\bf b}_p){\bf x}_p $</p>
                     </section>
                 </section>
+
+                <section>
+                    <section>
+                        <h3>パーセプトロンとWidrow-Hoff</h3>
+                    </section>
+
+                    <section>
+                        <p>識別関数の出力を0か1に限定して
+                        $$ \begin{align} T(u) & = 1 \;\;\; (u \ge 0) \\
+                        T(u) & = 0 \;\;\; (u < 0) \\
+                        g({\bf x}) & = T({\bf w}^t {\bf x}) \end{align} $$</p>
+                        <p>教師信号を$b_i=1, b_j=0 \;\; (i \neq j)$とすれば、誤識別のパターンは2通りだけ
+                        $$ \begin{align} g_i({\bf x}_p) & = 0, b_i = 1 \\
+                           g_j({\bf x}_p) & = 1, b_j = 0 \;\; (i \neq j) \end{align} $$</p>
+                    </section>
+
+                    <section>
+                        <p>このときWidrow-Hoffの学習規則 $ {\bf w} = {\bf w} - \rho (g({\bf x}_p) - {\bf b}_p){\bf x}_p $ より、
+                        $$ {\bf w} = {\bf w} + \rho {\bf x}_p \;\; (g_i({\bf x}_p) = 1, b_i = 0) \\
+                           {\bf w} = {\bf w} - \rho {\bf x}_p \;\; (g_i({\bf x}_p) = 0, b_i = 1) $$</p>
+                        <p>なので、パーセプトロンはWidrow-Hoffの学習規則の特殊な場合ということが分かる</p>
+                    </section>
+
+                    <section>
+                        <p>閾値関数$T(u)$が表すように、パーセプトロンは誤識別したデータのみ重みを修正する</p>
+                        <p>パーセプトロンは全てのデータを正しく識別できたときに終了する</p>
+                        <p>Widrow-Hoffの学習規則は正しく識別できても、識別関数の出力値と教師信号に差があれば重みの修正を行う</p>
+                        <p>Widrow-Hoffの学習規則は、全てのデータを正しく識別できなくても、誤差が最小になったときに終了する</p>
+                    </section>
+                </section>
 			</div>
 
 		</div>
