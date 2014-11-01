@@ -1,0 +1,384 @@
+<!-- vim: foldmethod=marker
+-->
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="フリーソフトでつくる音声認識システム 4章">
+		<meta name="author" content="2GMon">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="../css/reveal.min.css">
+		<link rel="stylesheet" href="../css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="../css/2gmon.css">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="../lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="../lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+                <section>
+                    <h3>フリーソフトでつくる音声認識システム</h3>
+                    <h3>6章</h3>
+                    <p>
+                    <small>Created by <a href="https://twitter.com/2GMon">2GMon</a></small>
+                    </p>
+                </section>
+
+                <section>
+                    <h3>話の流れ</h3>
+
+                    <ul>
+                        <li>基本的な識別の限界</li>
+                        <li>サポートベクトルマシン(SVM)</li>
+                        <li>ニューラルネットワーク</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>基本的な識別の限界</h3>
+                    </section>
+                    <section>
+                        <p>4, 5章で識別の基本的な理論をカバーした</p>
+                        <ul>
+                            <li>誤りなく識別できる決定境界を見つける方法<ul>
+                                    <li>パーセプトロン</li></ul></li>
+                            <li>誤差を最小にする決定境界を見つける方法<ul>
+                                    <li>Widrow-Hoffの学習規則</li></ul></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <p>パーセプトロンやWidrow-Hoffの学習規則には限界がある</p>
+                        <ul>
+                            <li>パーセプトロン<ul>
+                                    <li>線形分離不可能な学習データに対して停止しない</li></ul></li>
+                            <li>Widrow-Hoffの学習規則<ul>
+                                    <li>学習データが線形分離可能な場合、見つかった決定境界が必ず誤識別しないといえない</li></ul></li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h3>サポートベクトルマシン(SVM)</h3>
+                    </section>
+
+                    <section>
+                        <p>パーセプトロンの問題は大きく2つある</p>
+                        <ul>
+                            <li>線形分離不可能な場合に停止しない</li>
+                            <li>誤識別0となる決定境界が見つかっても、未知のデータに通用するとは限らない</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <p>見つかった決定境界が未知のデータにも通用するかわからない、という問題について考える</p>
+                        <p class="fragment">パーセプトロンの場合、誤識別が0になる領域のどこに決定境界がひかれるのかわからない</p>
+                        <p class="fragment">未知のデータに対する識別率は、領域ギリギリよりも真ん中辺りが良さそう</p>
+                        <p>
+                            <span class="fragment">この真ん中を決めるのがSVM</span>
+                        <!-- {{{ -->
+                        <svg width="320" height="320" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" style="float: right;">
+                            <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+
+                            <g>
+                            <title>レイヤ 0</title>
+                            <rect stroke-opacity="0" id="svg_23" height="341" width="353" y="-14" x="-20" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="3" stroke="#000000" fill="#ffffff"/>
+                            <rect id="svg_24" height="0" width="1" y="219" x="-116" stroke-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="3" stroke="#000000" fill="#ffffff"/>
+                            </g>
+                            <g>
+                            <title>Layer 1</title>
+                            <g id="svg_17" transform="rotate(180, 236.5, 150)">
+                            <circle fill="#999999" stroke="#000000" cx="241.75" cy="131" r="5.38672" id="svg_9"/>
+                            <circle fill="#999999" stroke="#000000" cx="279.75" cy="122" r="5.38672" id="svg_10"/>
+                            <circle fill="#999999" stroke="#000000" cx="279.75" cy="158" r="5.38672" id="svg_11"/>
+                            <circle fill="#999999" stroke="#000000" cx="215.25" cy="138" r="5.38672" id="svg_12"/>
+                            <circle fill="#999999" stroke="#000000" cx="217.25" cy="207" r="5.38672" id="svg_13"/>
+                            <circle fill="#999999" stroke="#000000" cx="237.25" cy="99" r="5.38672" id="svg_14"/>
+                            <circle fill="#999999" stroke="#000000" cx="238.25" cy="161" r="5.38672" id="svg_15"/>
+                            <circle fill="#999999" stroke="#000000" cx="193.25" cy="93" r="5.38672" id="svg_16"/>
+                            </g>
+                            <g id="svg_18">
+                            <circle fill="#000000" stroke="#000000" fill-opacity="0" cx="79" cy="160" r="5.38672" id="svg_1"/>
+                            <circle fill="#000000" stroke="#000000" fill-opacity="0" cx="117" cy="151" r="5.38672" id="svg_2"/>
+                            <circle fill="#000000" stroke="#000000" fill-opacity="0" cx="117" cy="187" r="5.38672" id="svg_3"/>
+                            <circle fill="#000000" stroke="#000000" fill-opacity="0" cx="52.5" cy="167" r="5.38672" id="svg_4"/>
+                            <circle fill="#000000" stroke="#000000" fill-opacity="0" cx="54.5" cy="236" r="5.38672" id="svg_5"/>
+                            <circle fill="#000000" stroke="#000000" fill-opacity="0" cx="74.5" cy="128" r="5.38672" id="svg_6"/>
+                            <circle fill="#000000" stroke="#000000" fill-opacity="0" cx="75.5" cy="190" r="5.38672" id="svg_7"/>
+                            <circle fill="#000000" stroke="#000000" fill-opacity="0" cx="30.5" cy="122" r="5.38672" id="svg_8"/>
+                            </g>
+                            <foreignObject x="5" y="150" width="50" height="50">
+                            <span style=" color: black;">$\omega_1$</span>
+                            </foreignObject>
+                            <foreignObject x="270" y="120" width="50" height="50">
+                            <span style=" color: black;">$\omega_2$</span>
+                            </foreignObject>
+                            </g>
+                            <g>
+                            <title>レイヤ 2</title>
+                            <path opacity="0.4" id="svg_19" d="m4,48l115,95l-2,49l-118,136l349,-2c0,0 -5,-35 -4,-35c1,0 -154,-107 -154,-107c0,0 0,-50 0,-50c0,0 109,-139 109,-139c0,0 -357,-7 -357,-7c0,0 62,60 62,60z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" stroke="#000000" fill="#999999"/>
+                            </g>
+                            <g>
+                            <title>レイヤ 3</title>
+                            <line id="svg_20" y2="323.00001" x2="162" y1="-3.00002" x1="131" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="3" stroke="#000000" fill="none"/>
+                            <line id="svg_21" y2="293" x2="322" y1="27" x1="-4" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="3" stroke="#000000" fill="none"/>
+                            <line id="svg_22" y2="328" x2="187" y1="-1" x1="187" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="3" stroke="#000000" fill="none"/>
+                            </g>
+                        </svg>
+                        <!-- }}} -->
+                        </p>
+                    </section>
+
+                    <section>
+                        <h3>SVMの概要</h3>
+                        <p>k-NN法と同様に、決定境界を決める問題を、学習データの中からプロトタイプを選ぶ問題に置き換える</p>
+                        <p class="fragment">決定境界を決めるデータをサポートベクトルとよぶ</p>
+                        <p class="fragment">各クラスのサポートベクトルと、決定境界の距離をマージンとよぶ</p>
+                        <p class="fragment">マージンが最大になる決定境界を得る</p>
+                        <p class="fragment">
+                        <!-- {{{ -->
+<svg width="320" height="320" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+
+ <g>
+  <title>レイヤ 0</title>
+  <rect fill="#ffffff" stroke="#000000" stroke-width="3" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="-20" y="-14" width="353" height="341" id="svg_23" stroke-opacity="0"/>
+  <rect fill="#ffffff" stroke="#000000" stroke-width="3" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" stroke-opacity="0" x="-116" y="219" width="1" height="0" id="svg_24"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_17" transform="rotate(180, 236.5, 150)">
+   <circle fill="#999999" stroke="#000000" cx="241.75" cy="131" r="5.38672" id="svg_9"/>
+   <circle fill="#999999" stroke="#000000" cx="279.75" cy="122" r="5.38672" id="svg_10"/>
+   <circle fill="#999999" stroke="#000000" cx="279.75" cy="158" r="5.38672" id="svg_11"/>
+   <circle fill="#999999" stroke="#000000" cx="215.25" cy="138" r="5.38672" id="svg_12"/>
+   <circle fill="#999999" stroke="#000000" cx="217.25" cy="207" r="5.38672" id="svg_13"/>
+   <circle fill="#999999" stroke="#000000" cx="237.25" cy="99" r="5.38672" id="svg_14"/>
+   <circle fill="#999999" stroke="#000000" cx="238.25" cy="161" r="5.38672" id="svg_15"/>
+   <circle fill="#999999" stroke="#000000" cx="193.25" cy="93" r="5.38672" id="svg_16"/>
+  </g>
+  <g id="svg_18">
+   <circle fill="#000000" stroke="#000000" fill-opacity="0" cx="79" cy="160" r="5.38672" id="svg_1"/>
+   <circle fill="#000000" stroke="#000000" fill-opacity="0" cx="117" cy="151" r="5.38672" id="svg_2"/>
+   <circle fill="#000000" stroke="#000000" fill-opacity="0" cx="117" cy="187" r="5.38672" id="svg_3"/>
+   <circle fill="#000000" stroke="#000000" fill-opacity="0" cx="52.5" cy="167" r="5.38672" id="svg_4"/>
+   <circle fill="#000000" stroke="#000000" fill-opacity="0" cx="54.5" cy="236" r="5.38672" id="svg_5"/>
+   <circle fill="#000000" stroke="#000000" fill-opacity="0" cx="74.5" cy="128" r="5.38672" id="svg_6"/>
+   <circle fill="#000000" stroke="#000000" fill-opacity="0" cx="75.5" cy="190" r="5.38672" id="svg_7"/>
+   <circle fill="#000000" stroke="#000000" fill-opacity="0" cx="30.5" cy="122" r="5.38672" id="svg_8"/>
+  </g>
+  <circle id="svg_19" r="9.84766" cy="151" cx="117" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="#000000"/>
+  <circle id="svg_20" r="9.84766" cy="178" cx="193.5" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="#000000"/>
+  <circle id="svg_21" r="9.84766" cy="142" cx="193.5" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="#000000"/>
+  <circle id="svg_22" r="9.84766" cy="187" cx="117" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="#000000"/>
+ </g>
+ <g>
+  <title>レイヤ 2</title>
+  <line id="svg_25" y2="328.0058" x2="156" y1="-17" x1="156" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="3" stroke="#000000" fill="none"/>
+  <line id="svg_26" y2="331.65225" x2="117" y1="-19" x1="117" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="5,5" stroke="#000000" fill="none"/>
+  <line id="svg_27" y2="334.32608" x2="193.5" y1="-16.32617" x1="193.5" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="5,5" stroke="#000000" fill="none"/>
+ </g>
+</svg>
+                        <!-- }}} -->
+                        </p>
+                    </section>
+
+                    <section>
+                        <p>学習データ $$ X = \{ {\bf x}_1, \cdots , {\bf x}_n \} $$</p>
+                        <p>正解クラスラベル $$ \{ y_1, \cdots , y_n \} (y_i = 1({\bf x}_i \in X_1), y_i = -1({\bf x}_i \in X_2)) $$</p>
+                        <p>決定境界 $$ g_i({\bf x}) = {\bf w}^T {\bf x} + w_0 = 0 $$</p>
+                    </section>
+
+                    <section>
+                        <p>マージンを最大化するという問題は、サポートベクトルと決定境界の距離を最大化するということ</p>
+                        <p>点と面の距離の公式から、サポートベクトル${\bf x}_i$と決定境界$g_i({\bf x})$の距離は
+                        $$ \min_{i = 1, \cdots, n} \frac{|{\bf w}^T {\bf x}_i + w_0|}{||m||} $$</p>
+                    </section>
+
+                    <section>
+                        <h3>点と面の距離の公式</h3>
+                        <p>点$(x_1, y_1)$と平面$ax+by+c=0$との距離$d$は
+                        $$ d = \frac{|ax_1+by_1+c|}{\sqrt{a^2+b^2}} $$</p>
+                    </section>
+
+                    <section>
+                        <p>決定境界の${\bf w}$や$w_0$を定数バイしても超平面は変わらないので、以下のような制約を設けられる
+                        $$ \min_{i = 1, \cdots, n} |{\bf w}^T {\bf x}_i + w_0| = 1$$</p>
+                        <p>よって、サポートベクトルと決定境界の距離は以下のようになる
+                        $$ \min_{i = 1, \cdots, n} \frac{|{\bf w}^T {\bf x}_i + w_0|}{||m||} = \frac {1}{||{\bf w}||} $$</p>
+                        <p>マージンを最大化するという問題は$||{\bf w}||$を最小化するという問題になる</p>
+                    </section>
+
+                    <section>
+                        <p>誤識別が起こらない範囲で$||{\bf w}||$を最小化する必要がある</p>
+                        <p>誤識別が起こらないという制約は以下のように設けられる
+                        $$ y_i({\bf w}^T{\bf x}_i + w_0) \geq 1 \;\; (i = 1, \cdots, n) $$</p>
+                    </section>
+
+                    <section>
+                        <p>このように一定の条件が与えられたもとでの最小化問題はラグランジュの未定乗数法で解くことができる</p>
+                        <p>$||{\bf w}||^2$の最小化問題は、ラグランジュ係数$\alpha_i$を導入して、以下の関数$L$の最小値を求める問題に置き換えられる
+                        $$ L({\bf w}, w_0, \alpha) = \frac{1}{2}||{\bf w}||^2 - \sum_{i=1}^n \alpha_i(y_i({\bf w}^T{\bf x}_i + w_0) - 1) $$</p>
+                    </section>
+
+                    <section>
+                        <h3>ラグランジュの未定乗数法</h3>
+                        <p>$g(x, y)=0$という条件の下で、$z=f(x,y)$の最大値(or 最小値)を求める問題は、$L=f(x,y) - \lambda g(x,y)$という新しい関数を導入し、
+                        この関数の極値を求めるという問題に置き換えることができる</p>
+                    </section>
+
+                    <section>
+                        <p>最小値では$L$の勾配が0になるので、以下の式が成り立つ
+                        $$ \begin{align} \frac{\partial L}{\partial w_0} = 0 & \Rightarrow \sum_{i=1}^n\alpha_i y_i = 0 \\
+                                         \frac{\partial L}{\partial {\bf w}} = 0 & \Rightarrow {\bf w} = \sum_{i=1}^n\alpha_i y_i {\bf x}_i \end{align}$$</p>
+                        <p>$ L({\bf w}, w_0, \alpha) = \frac{1}{2}||{\bf w}||^2 - \sum_{i=1}^n \alpha_i(y_i({\bf w}^T{\bf x}_i + w_0) - 1) $に代入して
+                        $L(\alpha) = \sum_{i=1}^n\alpha_i - \frac{1}{2} \sum_{i,j=1}^n \alpha_i \alpha_j y_i y_j {\bf x}_i^T {\bf x}_j $を得る
+                        (第1項と第2項を入れ替え、符号を逆にしてある)</p>
+                    </section>
+
+                    <section>
+                        <p>$L$の符号が入れ替わったので、$L$を最大化すれば良い</p>
+                        <p>これは$\alpha_i$に関する2次計画問題と呼ばれ、数値計算ソフトで簡単に求められる(最急降下法でも可)</p>
+                        <p>$ {\bf w} = \sum_{i=1}^n\alpha_i y_i {\bf x}_i $より$\alpha_i = 0$となるデータは${\bf w}$の決定に全く関与しない</p>
+                        <p>決定境界$ g_i({\bf x}) = {\bf w}^T {\bf x} + w_0 = 0 $にサポートベクトル$x$を代入すると$w_0$が求まる</p>
+                        <p>以上で、線形分離可能な場合はマージンを最大化する決定境界が求まる</p>
+                    </section>
+
+                    <section>
+                        <p>線形分離可能な場合にパーセプトロンが停止しないという問題について考える</p>
+                        <br />
+                        <div class="fragment">
+                        <p>一般に特徴空間の次元数$d$が大きい場合は、線形分裏面が存在する可能性が高くなる</p>
+                        <p>低次元の特徴ベクトルを高次元に写像する方法が考えられる</p>
+                        </div>
+                    </section>
+
+                    <section>
+                        <p>元の空間におけるデータ間の距離関係を保存する方式で高次元に非線形変換しても、その高次元空間上での線形識別器の性能は
+                        元の空間の性能を反映することがわかっている</p>
+                        <p>なので、元の空間におけるデータ間の距離関係を保存するような非線形写像が見つかれば良い</p>
+                    </section>
+
+                    <section>
+                        <p>元の特徴空間上の2点${\bf x}, {\bf x}'$の距離に基づいて定義される、ある関数$K({\bf x}, {\bf x}')$を考える</p>
+                        <p>この関数はカーネル関数と呼ばれる</p>
+                        <p>非線形写像を$\phi$としたときに、以下の関係が成り立つことを仮定すると
+                        $$ K({\bf x}, {\bf x}') = \phi ({\bf x})^T \phi ({\bf x}') $$</p>
+                        <p>写像後の空間での識別関数は以下のように書くことができる
+                        $$ g(\phi ({\bf x})) = {\bf w}^T \phi({\bf x}) + w_0 $$</p>
+                        <p>このとき元の空間での2点間の距離が、非線形写像後の空間における内積に反映されるという形式で、近さの情報を保存している</p>
+                    </section>
+
+                    <section>
+                        <p>${\bf w} = \sum_{i=1}^n\alpha_i y_i {\bf x}_i$より
+                        $$ \begin{align} g(\phi ({\bf x})) & = {\bf w}^T \phi({\bf x}) + w_0 \\
+                        & = \sum_{i=1}^n\alpha_i y_i \phi({\bf x})^T \phi({\bf x}_i) + w_0 \\
+                        & = \sum_{i=1}^n\alpha_i y_i K({\bf x}, {\bf x}_i) + w_0 \end{align} $$</p>
+                        <p>$L(\alpha) = \sum_{i=1}^n\alpha_i - \frac{1}{2} \sum_{i,j=1}^n \alpha_i \alpha_j y_i y_j {\bf x}_i^T {\bf x}_j$より、
+                        学習も $\sum_{i=1}^n \alpha_i - \frac{1}{2} \sum_{i,j=1}^n \alpha_i \alpha_j y_i y_j K({\bf x}_i, {\bf x}_j)$
+                        を最大化するという問題になる</p>
+                    </section>
+
+                    <section>
+                        <p>識別関数、最大化の式両方から$\phi$が消えているので、カーネル関数$K$さえ定まれば識別面を得ることができる</p>
+                        <p>このような、複雑な非線形変換を求める操作を避ける方法をカーネルトリックと呼ぶ</p>
+                        <p>カーネル関数が正定値関数という条件を満たすときには、このような非線形変換$\phi$が存在することがわかっている</p>
+                    </section>
+
+                    <section>
+                        <p>カーネル関数の例として、以下のようなものがある</p>
+                        <ul>
+                            <li>多項式カーネル$$ K({\bf x}, {\bf x}') = ({\bf x}^T {\bf x}' + 1)^p \;\; (p : 自然数) $$</li>
+                            <li>ガウシアンカーネル$$ K({\bf x}, {\bf x}') = exp(- \frac{||{\bf x} - {\bf x}'||^2}{\sigma ^2}) $$</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <p>非線形変換後の空間で見つかった線形分離超平面は、元の空間では複雑な非線形曲面に対応する</p>
+                        <p>SVMはそのまま多クラスの識別に拡張できないので、2クラス識別問題の組み合わせとして表現する</p>
+                    </section>
+                </section>
+			</div>
+
+		</div>
+
+		<script src="../lib/js/head.min.js"></script>
+		<script src="../js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../plugin/math/math.js', async: true },
+					{ src: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML', async: true }
+				]
+			});
+			Reveal.addEventListener( 'slidechanged', function( event ) {
+				MathJax.Hub.Rerender(event.currentSlide);
+				MathJax.Hub.Config({
+					"HTML-CSS": {
+						scale: 80
+					}
+				});
+				// if (event.indexh == 4 && event.indexv == 5) {
+				// 	// Reveal.configure({ center: false });
+				// } else {
+				// 	Reveal.configure({ center: true });
+				// }
+			} );
+		</script>
+
+	</body>
+</html>
