@@ -328,6 +328,535 @@
                         <p>SVMはそのまま多クラスの識別に拡張できないので、2クラス識別問題の組み合わせとして表現する</p>
                     </section>
                 </section>
+
+                <section>
+                    <h3>ニューラルネットワーク</h3>
+                </section>
+
+                <section>
+                    <ul>
+                        <li>誤差評価に基づく学習の問題点
+                            <ul>
+                                <li>線形分離可能な場合でも、得られる識別関数で誤識別が0になるとは限らない</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>非線形識別関数を用いて誤識別を減らす方法の1つにニューラルネットワークがある</p>
+                </section>
+
+                <section>
+                    <p>ニューラルネットワークはニューロンの働きをモデル化した閾値論理ユニットを多数結合したもの</p>
+                    <p>閾値論理ユニットは受け取った重み付き信号の和が閾値を超えると信号を出力する</p>
+                    <!-- {{{ -->
+<svg width="480" height="320" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+ <g>
+  <title>Layer 1</title>
+  <rect stroke-opacity="0" id="svg_2" height="328.99998" width="487.00001" y="-4.99998" x="-4.50001" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#ffffff"/>
+ </g>
+ <g>
+  <title>レイヤ 2</title>
+  <rect id="svg_3" height="31" width="64" y="42" x="86.5" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <rect id="svg_4" height="31" width="64" y="135" x="86.5" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <rect id="svg_5" height="31" width="64" y="235" x="86.5" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <path transform="rotate(90, 59.9575, 58.2124)" id="svg_6" d="m56.95749,58.17266l3,-16.44446l3,16.44446l-1.5,0l0,16.52385l-3,0l0,-16.52385l-1.5,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <path id="svg_7" transform="rotate(90, 59.9575, 102.212)" d="m56.95749,102.17266l3,-16.44446l3,16.44446l-1.5,0l0,16.52385l-3,0l0,-16.52385l-1.5,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <path id="svg_8" transform="rotate(90, 59.9575, 150.212)" d="m56.95749,150.17267l3,-16.44446l3,16.44446l-1.5,0l0,16.52383l-3,0l0,-16.52383l-1.5,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <path id="svg_9" transform="rotate(90, 59.9575, 199.212)" d="m56.95749,199.17267l3,-16.44446l3,16.44446l-1.5,0l0,16.52383l-3,0l0,-16.52383l-1.5,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <path id="svg_10" transform="rotate(90, 59.9575, 251.212)" d="m56.95749,251.17267l3,-16.44446l3,16.44446l-1.5,0l0,16.52383l-3,0l0,-16.52383l-1.5,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <g id="svg_15">
+   <ellipse ry="1" rx="1" id="svg_11" cy="94" cx="118" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+   <ellipse id="svg_12" ry="1" rx="1" cy="103" cx="118" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+   <ellipse id="svg_13" ry="1" rx="1" cy="112" cx="118" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  </g>
+  <g id="svg_16">
+   <ellipse id="svg_17" ry="1" rx="1" cy="190" cx="118" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+   <ellipse id="svg_18" ry="1" rx="1" cy="199" cx="118" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+   <ellipse id="svg_19" ry="1" rx="1" cy="208" cx="118" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  </g>
+  <circle id="svg_20" r="22.20361" cy="151" cx="218" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#b2b2b2"/>
+  <rect id="svg_22" height="112" width="68" y="95" x="280" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <line transform="rotate(52.5067, 177.796, 90.8277)" id="svg_24" y2="90.82773" x2="219.69231" y1="90.82773" x1="135.89906" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="none"/>
+  <path transform="rotate(142.507, 202.728, 124.293)" id="svg_25" d="m199.72844,130.91811l2.99991,-13.25002l3.00009,13.25002l-6,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <path id="svg_27" transform="rotate(90, 187.691, 151.413)" d="m184.69096,158.03795l2.99991,-13.25002l3.00009,13.25002l-6,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <line id="svg_28" y2="152" x2="182.01666" y1="152" x1="152" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="none"/>
+  <line id="svg_29" y2="174" x2="208" y1="253" x1="152" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="none"/>
+  <path id="svg_30" transform="rotate(33.4399, 205.5, 177.5)" d="m202.5,184.125l2.99991,-13.25l3.00009,13.25l-6,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <path id="svg_31" transform="rotate(90, 273.846, 152.5)" d="m270.84549,159.125l2.99991,-13.25l3.00009,13.25l-6,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <line id="svg_32" y2="153.08706" x2="266.17118" y1="153.08706" x1="241.15452" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="none"/>
+  <path id="svg_33" transform="rotate(90, 382.346, 151.5)" d="m379.34549,158.125l2.99991,-13.25l3.00009,13.25l-6,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <line id="svg_34" y2="152.08706" x2="374.67118" y1="152.08706" x1="349.65452" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="none"/>
+ </g>
+ <g>
+  <title>レイヤ 3</title>
+  <text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_39" y="160" x="218" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">Σ</text>
+  <line id="svg_42" y2="152" x2="340.03998" y1="152" x1="290" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_43" y2="181" x2="316" y1="181" x1="290" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_44" y2="117" x2="341" y1="117" x1="317" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_45" y2="180.78871" x2="316" y1="117" x1="316" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <text transform="matrix(0.565667, 0, 0, 0.6, 140.264, 69.2)" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_46" y="215" x="285.03656" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">0</text>
+  <text id="svg_47" transform="matrix(0.565667, 0, 0, 0.6, 140.264, 69.2)" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="71.66667" x="336.30347" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">1</text>
+ </g>
+ <g display="inline">
+  <title>レイヤ 4</title>
+  <text transform="matrix(0.567768, 0, 0, 0.6048, -2.06583, 7.6896)" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_35" y="29.94444" x="48.5512" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">入力</text>
+  <text id="svg_36" transform="matrix(0.567768, 0, 0, 0.6048, -2.06583, 7.6896)" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="28.29101" x="208.82793" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">重み</text>
+  <text id="svg_38" transform="matrix(0.576551, 0, 0, 0.6048, -8.10179, 7.6896)" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="180.40741" x="402.56905" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">和計算</text>
+  <text id="svg_40" transform="matrix(0.576551, 0, 0, 0.6048, -8.10179, 7.6896)" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="124.19048" x="558.66972" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">閾値関数</text>
+  <text id="svg_41" transform="matrix(0.567768, 0, 0, 0.6048, -2.06583, 7.6896)" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="178.75397" x="746.01923" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">出力</text>
+ </g>
+ <g>
+  <title>レイヤ 5</title>
+  <foreignObject x="15" y="25" width="50" height="50">
+  <span style="font-size: 60%; color: black;">$x_0$</span>
+  </foreignObject>
+  <foreignObject x="15" y="120" width="50" height="50">
+  <span style="font-size: 60%; color: black;">$x_i$</span>
+  </foreignObject>
+  <foreignObject x="15" y="220" width="50" height="50">
+  <span style="font-size: 60%; color: black;">$x_d$</span>
+  </foreignObject>
+
+  <foreignObject x="110" y="25" width="50" height="50">
+  <span style="font-size: 60%; color: black;">$w_0$</span>
+  </foreignObject>
+  <foreignObject x="110" y="120" width="50" height="50">
+  <span style="font-size: 60%; color: black;">$w_i$</span>
+  </foreignObject>
+  <foreignObject x="110" y="220" width="50" height="50">
+  <span style="font-size: 60%; color: black;">$w_d$</span>
+  </foreignObject>
+
+  <foreignObject x="400" y="120" width="50" height="50">
+  <span style="font-size: 60%; color: black;">$g_i({\bf x})$</span>
+  </foreignObject>
+ </g>
+</svg>
+                    <!-- }}} -->
+                </section>
+
+                <section>
+                <p>以下の様な単純な階層構造のものをフィードフォワード型ニューラルネットワークとよぶ</p>
+                <p>1を出力する出力層のユニットに対応するクラスが識別結果になる</p>
+                <!-- {{{ -->
+<svg width="480" height="320" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+
+ <g display="inline">
+  <title>Layer 1</title>
+  <rect stroke-opacity="0" id="svg_2" height="328.99998" width="487.00001" y="-4.99998" x="-4.50001" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#ffffff"/>
+ </g>
+ <g>
+  <title>レイヤ 2</title>
+  <rect id="svg_3" height="31" width="64" y="42" x="86.5" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <rect id="svg_4" height="31" width="64" y="135" x="86.5" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <rect id="svg_5" height="31" width="64" y="235" x="86.5" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <circle id="svg_20" r="22.20361" cy="57" cx="246.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000" fill-opacity="0"/>
+  <circle r="22.20361" cy="149" cx="246.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000" fill-opacity="0" id="svg_1"/>
+  <circle r="22.20361" cy="252" cx="246.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000" fill-opacity="0" id="svg_6"/>
+  <circle r="22.20361" cy="57" cx="376.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000" fill-opacity="0" id="svg_7"/>
+  <circle r="22.20361" cy="149" cx="376.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000" fill-opacity="0" id="svg_8"/>
+  <circle r="22.20361" cy="252" cx="376.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000" fill-opacity="0" id="svg_9"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="152" y1="56" x2="223.00704" y2="56" id="svg_10"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="225" y1="151" x2="152" y2="58" id="svg_11"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="224" y1="256" x2="153" y2="60" id="svg_12"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="152" y1="149" x2="223" y2="149" id="svg_13"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="224" y1="257" x2="152" y2="150" id="svg_14"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="153" y1="150" x2="223" y2="58" id="svg_15"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="152" y1="251" x2="224" y2="60" id="svg_16"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="153" y1="253" x2="223" y2="255" id="svg_17"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="225" y1="152" x2="151" y2="254" id="svg_18"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="270" y1="58" x2="353.02409" y2="58" id="svg_19"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="355" y1="152" x2="270" y2="60" id="svg_21"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="355" y1="254" x2="270" y2="60" id="svg_22"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="270" y1="150" x2="353.00602" y2="150" id="svg_23"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="352" y1="58" x2="270" y2="149" id="svg_24"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="355" y1="253" x2="272" y2="151" id="svg_25"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="353" y1="60" x2="271" y2="253" id="svg_26"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="353" y1="151" x2="270" y2="253.00001" id="svg_27"/>
+  <line fill="none" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="270" y1="254" x2="352" y2="254" id="svg_28"/>
+ </g>
+ <g display="inline">
+  <title>レイヤ 4</title>
+  <text transform="matrix(0.567768, 0, 0, 0.6048, -2.06583, 7.6896)" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_35" y="23.33068" x="214.11179" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">入力層</text>
+  <text id="svg_36" transform="matrix(0.567768, 0, 0, 0.6048, -2.06583, 7.6896)" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="23.33069" x="437.7947" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">中間層</text>
+  <text id="svg_41" transform="matrix(0.567768, 0, 0, 0.6048, -2.06583, 7.6896)" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="24.98412" x="672.04535" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">出力層</text>
+ </g>
+ <g>
+  <title>レイヤ 5</title>
+ </g>
+</svg>
+                <!-- }}} -->
+                </section>
+
+                <section>
+                    <p>各ユニットでの操作は非線形変換で、この場合フィードフォワード型ニューラルネットワークは重みを調整すれば任意の非線形識別面を近似できることがわかっている</p>
+                </section>
+
+                <section>
+                    <p>中間層から出力層への重みは判別結果と教師信号を比較することで、誤差評価に基づく学習が使える</p>
+                    <p>中間層に対応する教師信号は存在しないので、入力層から中間層への重みの学習は別の方法を考える必要がある</p>
+                <!-- {{{ -->
+<svg width="480" height="320" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+
+ <g display="inline">
+  <title>Layer 1</title>
+  <rect stroke-opacity="0" id="svg_2" height="328.99998" width="487.00001" y="-4.99998" x="-4.50001" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#ffffff"/>
+ </g>
+ <g>
+  <title>レイヤ 2</title>
+  <rect id="svg_3" height="31" width="64" y="42" x="86.5" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <rect id="svg_4" height="31" width="64" y="135" x="86.5" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <rect id="svg_5" height="31" width="64" y="235" x="86.5" fill-opacity="0" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000"/>
+  <circle id="svg_20" r="22.20361" cy="57" cx="246.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000" fill-opacity="0"/>
+  <circle r="22.20361" cy="149" cx="246.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000" fill-opacity="0" id="svg_1"/>
+  <circle r="22.20361" cy="252" cx="246.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000" fill-opacity="0" id="svg_6"/>
+  <circle r="22.20361" cy="57" cx="376.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000" fill-opacity="0" id="svg_7"/>
+  <circle r="22.20361" cy="149" cx="376.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000" fill-opacity="0" id="svg_8"/>
+  <circle r="22.20361" cy="252" cx="376.5" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="2" stroke="#000000" fill="#000000" fill-opacity="0" id="svg_9"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="152" y1="56" x2="223.00704" y2="56" id="svg_10"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="225" y1="151" x2="152" y2="58" id="svg_11"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="224" y1="256" x2="153" y2="60" id="svg_12"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="152" y1="149" x2="223" y2="149" id="svg_13"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="224" y1="257" x2="152" y2="150" id="svg_14"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="153" y1="150" x2="223" y2="58" id="svg_15"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="152" y1="251" x2="224" y2="60" id="svg_16"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="153" y1="253" x2="223" y2="255" id="svg_17"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="225" y1="152" x2="151" y2="254" id="svg_18"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="270" y1="58" x2="353.02409" y2="58" id="svg_19"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="355" y1="152" x2="270" y2="60" id="svg_21"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="355" y1="254" x2="270" y2="60" id="svg_22"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="270" y1="150" x2="353.00602" y2="150" id="svg_23"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="352" y1="58" x2="270" y2="149" id="svg_24"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="355" y1="253" x2="272" y2="151" id="svg_25"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="353" y1="60" x2="271" y2="253" id="svg_26"/>
+  <line fill="none" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="353" y1="151" x2="270" y2="253.00001" id="svg_27"/>
+  <line fill="none" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="270" y1="254" x2="352" y2="254" id="svg_28"/>
+ </g>
+ <g display="inline">
+  <title>レイヤ 4</title>
+  <text transform="matrix(0.567768, 0, 0, 0.6048, -2.06583, 7.6896)" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_35" y="23.33068" x="214.11179" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">入力層</text>
+  <text id="svg_36" transform="matrix(0.567768, 0, 0, 0.6048, -2.06583, 7.6896)" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="23.33069" x="437.7947" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">中間層</text>
+  <text id="svg_41" transform="matrix(0.567768, 0, 0, 0.6048, -2.06583, 7.6896)" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="24.98412" x="672.04535" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">出力層</text>
+ </g>
+ <g>
+  <title>レイヤ 5</title>
+ </g>
+</svg>
+                <!-- }}} -->
+                </section>
+
+                <section>
+                    <p>階層的なネットワークの重みを学習する誤差逆伝播法という方法がある</p>
+                    <!-- {{{ -->
+<svg width="480" height="320" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+
+ <g display="inline">
+  <title>Layer 1</title>
+  <rect fill="#ffffff" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="-4.50001" y="-4.99998" width="487.00001" height="328.99998" id="svg_2" stroke-opacity="0"/>
+ </g>
+ <g>
+  <title>レイヤ 2</title>
+  <rect fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" fill-opacity="0" x="86.5" y="42" width="64" height="31" id="svg_3"/>
+  <rect fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" fill-opacity="0" x="86.5" y="135" width="64" height="31" id="svg_4"/>
+  <rect fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" fill-opacity="0" x="86.5" y="235" width="64" height="31" id="svg_5"/>
+  <circle fill-opacity="0" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="246.5" cy="57" r="22.20361" id="svg_20"/>
+  <circle id="svg_1" fill-opacity="0" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="246.5" cy="149" r="22.20361"/>
+  <circle id="svg_6" fill-opacity="0" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="246.5" cy="252" r="22.20361"/>
+  <circle id="svg_7" fill-opacity="0" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="376.5" cy="57" r="22.20361"/>
+  <circle id="svg_8" fill-opacity="0" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="376.5" cy="149" r="22.20361"/>
+  <circle id="svg_9" fill-opacity="0" fill="#000000" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="376.5" cy="252" r="22.20361"/>
+  <line id="svg_10" y2="56" x2="223.00704" y1="56" x1="152" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_11" y2="58" x2="152" y1="151" x1="225" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_12" y2="60" x2="153" y1="256" x1="224" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_13" y2="149" x2="223" y1="149" x1="152" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_14" y2="150" x2="152" y1="257" x1="224" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_15" y2="58" x2="223" y1="150" x1="153" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_16" y2="60" x2="224" y1="251" x1="152" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_17" y2="255" x2="223" y1="253" x1="153" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_18" y2="254" x2="151" y1="152" x1="225" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_19" y2="58" x2="353.02409" y1="58" x1="270" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_21" y2="60" x2="270" y1="152" x1="355" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_22" y2="60" x2="270" y1="254" x1="355" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_23" y2="150" x2="353.00602" y1="150" x1="270" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_24" y2="149" x2="270" y1="58" x1="352" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_25" y2="151" x2="272" y1="253" x1="355" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_26" y2="253" x2="271" y1="60" x1="353" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_27" y2="253.00001" x2="270" y1="151" x1="353" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke="#000000" fill="none"/>
+  <line id="svg_28" y2="254" x2="352" y1="254" x1="270" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" stroke="#000000" fill="none"/>
+ </g>
+ <g display="inline">
+  <title>レイヤ 4</title>
+  <text fill="#000000" stroke="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="83.77686" y="26.63756" id="svg_35" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve" transform="matrix(0.567768, 0, 0, 0.6048, -2.06583, 7.6896)">入力</text>
+  <text style="cursor: move;" fill="#000000" stroke="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="772.43847" y="26.63756" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve" transform="matrix(0.567768, 0, 0, 0.6048, -2.06583, 7.6896)" id="svg_41">教師信号</text>
+  <path transform="rotate(90, 118.122, 26.3952)" id="svg_29" d="m112.62249,26.29324l5.5,-42.37504l5.5,42.37504l-2.74999,0l0,42.57903l-5.50001,0l0,-42.57903l-2.75,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" stroke="#000000" fill="#000000"/>
+  <path id="svg_30" transform="rotate(90, 255.122, 27.3952)" d="m249.6225,27.29324l5.5,-42.37504l5.5,42.37504l-2.75,0l0,42.57903l-5.5,0l0,-42.57903l-2.75,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" stroke="#000000" fill="#000000"/>
+  <path id="svg_31" transform="rotate(-90, 246.122, 290.395)" fill-opacity="0" d="m240.6225,290.29324l5.5,-42.37505l5.5,42.37505l-2.75,0l0,42.57901l-5.5,0l0,-42.57901l-2.75,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" stroke="#000000" fill="#000000"/>
+  <path id="svg_32" transform="rotate(-90, 377.122, 291.395)" fill-opacity="0" d="m371.6225,291.29324l5.5,-42.37503l5.5,42.37503l-2.75,0l0,42.57901l-5.5,0l0,-42.57901l-2.75,0z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" stroke="#000000" fill="#000000"/>
+  <text style="cursor: move;" id="svg_33" fill="#000000" stroke="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="786.5287" y="489.60054" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve" transform="matrix(0.567768, 0, 0, 0.6048, -2.06583, 7.6896)">誤差</text>
+ </g>
+ <g>
+  <title>レイヤ 5</title>
+  <foreignObject x="40" y="25" width="50" height="50">
+  <span style="font-size: 60%; color: black;">$x_0$</span>
+  </foreignObject>
+  <foreignObject x="40" y="120" width="50" height="50">
+  <span style="font-size: 60%; color: black;">$x_i$</span>
+  </foreignObject>
+  <foreignObject x="40" y="220" width="50" height="50">
+  <span style="font-size: 60%; color: black;">$x_d$</span>
+  </foreignObject>
+
+  <foreignObject x="420" y="25" width="50" height="50">
+  <span style="font-size: 60%; color: black;">$b_0$</span>
+  </foreignObject>
+  <foreignObject x="420" y="120" width="50" height="50">
+  <span style="font-size: 60%; color: black;">$b_i$</span>
+  </foreignObject>
+  <foreignObject x="420" y="220" width="50" height="50">
+  <span style="font-size: 60%; color: black;">$b_d$</span>
+  </foreignObject>
+ </g>
+</svg>
+                    <!-- }}} -->
+                </section>
+
+                <section>
+                    <p>以降では一般化のために、多くの階層からなるネットワークを考える</p>
+                    <!-- {{{ -->
+<svg width="480" height="320" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+
+ <g>
+  <title>Layer 1</title>
+  <rect fill="#ffffff" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="-6" y="-5" width="491" height="329" id="svg_1"/>
+ </g>
+ <g display="inline">
+  <title>レイヤ 2</title>
+  <rect fill="#b2b2b2" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="10" y="5" width="89" height="279" id="svg_2"/>
+  <rect fill="#b2b2b2" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="381" y="4" width="89" height="282.00001" id="svg_3"/>
+  <text fill="#000000" stroke="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="24" y="298" id="svg_5" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve"/>
+  <text fill="#000000" stroke="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="212.72384" y="307.66667" id="svg_6" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve" transform="matrix(0.508868, 0, 0, 0.6, -43.2483, 121.6)">1層前のユニット集合</text>
+  <text fill="#000000" stroke="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="902.49018" y="307.66667" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve" transform="matrix(0.508868, 0, 0, 0.6, -43.2483, 121.6)" id="svg_7">1層後のユニット集合</text>
+  <circle fill="#ffffff" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="239.5" cy="137" r="79.69803" id="svg_14"/>
+  <text fill="#000000" stroke="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="560.55473" y="237.66667" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve" transform="matrix(0.508868, 0, 0, 0.6, -43.2483, 121.6)" id="svg_16">着目している層のj番目のユニット</text>
+ </g>
+ <g display="inline">
+  <title>レイヤ 3</title>
+  <circle fill="#ffffff" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="54.5" cy="49" r="26.40076" id="svg_8"/>
+  <circle fill="#ffffff" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="54.5" cy="135" r="26.40076" id="svg_9"/>
+  <circle fill="#ffffff" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="54.5" cy="234" r="26.40076" id="svg_10"/>
+  <circle fill="#ffffff" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="425.5" cy="50" r="26.40076" id="svg_11"/>
+  <circle fill="#ffffff" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="425.5" cy="136" r="26.40076" id="svg_12"/>
+  <circle fill="#ffffff" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="425.5" cy="235" r="26.40076" id="svg_13"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="82" y1="49" x2="100" y2="49" id="svg_26"/>
+  <rect fill="#000000" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="109" y="33" width="45" height="30" id="svg_17" fill-opacity="0"/>
+  <rect fill="#000000" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="109" y="120" width="45" height="30" fill-opacity="0" id="svg_18"/>
+  <rect fill="#000000" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="109" y="218" width="45" height="30" fill-opacity="0" id="svg_19"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m99.13501,53.78318l5,-8.75005l5,8.75005l-10,0z" id="svg_23" transform="rotate(90, 104.135, 49.4082)"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m98.13501,139.78317l5,-8.75005l5,8.75005l-10,0z" transform="rotate(90, 103.135, 135.408)" id="svg_24"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m98.13501,238.78317l5,-8.75005l5,8.75005l-10,0z" transform="rotate(90, 103.135, 234.408)" id="svg_25"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="163" y1="137" x2="153.94461" y2="137" id="svg_30"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="154" y1="47" x2="194" y2="112" id="svg_33"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="155" y1="234" x2="194" y2="162" id="svg_34"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="98" y1="136" x2="83" y2="136" id="svg_27"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="82" y1="234" x2="102.02498" y2="234" id="svg_28"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m186.13501,112.78317l5,-8.75005l5,8.75005l-10,0z" transform="rotate(147.785, 191.135, 108.408)" id="svg_31"/>
+  <circle fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" fill-opacity="0" cx="195" cy="136" r="23.43075" id="svg_20"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m162.13501,141.78317l5,-8.75005l5,8.75005l-10,0z" transform="rotate(90, 167.135, 137.408)" id="svg_29"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m188.13501,168.78317l5,-8.75005l5,8.75005l-10,0z" transform="rotate(26.0835, 193.135, 164.408)" id="svg_32"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="218" y1="134" x2="249.01612" y2="134" id="svg_36"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m247.13501,137.78317l5,-8.75005l5,8.75005l-10,0z" transform="rotate(90, 252.135, 133.408)" id="svg_35"/>
+  <rect fill="#000000" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" fill-opacity="0" x="256" y="97" width="42" height="75" id="svg_21"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="300" y1="134" x2="329.01612" y2="134" id="svg_38"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m323.13501,138.78317l5,-8.75005l5,8.75005l-10,0z" transform="rotate(90, 328.135, 134.408)" id="svg_37"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="358" y1="132" x2="405" y2="70" id="svg_39"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="404" y1="217" x2="357" y2="133" id="svg_40"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="399" y1="134" x2="358" y2="134" id="svg_41"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m400.13501,75.78318l5,-8.75005l5,8.75005l-10,0z" transform="rotate(35.5406, 405.135, 71.4082)" id="svg_42"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m390.13501,137.78317l5,-8.75005l5,8.75005l-10,0z" transform="rotate(90, 395.135, 133.408)" id="svg_43"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m398.13501,219.78317l5,-8.75005l5,8.75005l-10,0z" transform="rotate(150.855, 403.135, 215.408)" id="svg_44"/>
+  <text fill="#000000" stroke="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="194" y="144" id="svg_45" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">Σ</text>
+  <text fill="#000000" stroke="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="380" y="80" id="svg_46" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve"  transform="matrix(0.507576, 0, 0, 0.558989, 173.914, 57.002)">重み</text>
+ </g>
+ <g display="inline">
+  <title>レイヤ 4</title>
+  <foreignObject x="80" y="25" width="50" height="50">
+  <span style="font-size: 50%; color: black;">$g_{0p}$</span>
+  </foreignObject>
+  <foreignObject x="80" y="115" width="50" height="50">
+  <span style="font-size: 50%; color: black;">$g_{ip}$</span>
+  </foreignObject>
+  <foreignObject x="80" y="210" width="50" height="50">
+  <span style="font-size: 50%; color: black;">$g_{mp}$</span>
+  </foreignObject>
+
+  <foreignObject x="120" y="15" width="50" height="50">
+  <span style="font-size: 50%; color: black;">$w_{0j}$</span>
+  </foreignObject>
+  <foreignObject x="120" y="105" width="50" height="50">
+  <span style="font-size: 50%; color: black;">$w_{ij}$</span>
+  </foreignObject>
+  <foreignObject x="120" y="200" width="50" height="50">
+  <span style="font-size: 50%; color: black;">$w_{mj}$</span>
+  </foreignObject>
+
+  <foreignObject x="230" y="115" width="50" height="50">
+  <span style="font-size: 50%; color: black;">$h_{jp}$</span>
+  </foreignObject>
+
+  <foreignObject x="270" y="110" width="90" height="50">
+  <span style="font-size: 80%; color: black;">$f$</span>
+  </foreignObject>
+
+  <foreignObject x="335" y="100" width="50" height="50">
+  <span style="font-size: 50%; color: black;">$g_{jp}$</span>
+  </foreignObject>
+ </g>
+</svg>
+                    <!-- }}} -->
+                </section>
+
+                <section>
+                    <p>学習パターン${\bf x}_p$が入力された時を考える</p>
+                    <p>ユニット$i$の出力：$g_{ip}$<br />ユニット$i$からユニット$j$への重み：$w_{ij}$とすると</p>
+                    <p>ユニット$j$への入力：$h_{jp} = \sum_i w_{ij} g_{ip}$<br />ユニット$j$の出力：$f$を閾値関数とすると$g_{jp}=f(h_{jp})$</p>
+                    <!-- {{{ -->
+<svg width="480" height="320" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+
+ <g>
+  <title>Layer 1</title>
+  <rect fill="#ffffff" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="-6" y="-5" width="491" height="329" id="svg_1"/>
+ </g>
+ <g display="inline">
+  <title>レイヤ 2</title>
+  <rect fill="#b2b2b2" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="10" y="5" width="89" height="279" id="svg_2"/>
+  <rect fill="#b2b2b2" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="381" y="4" width="89" height="282.00001" id="svg_3"/>
+  <text fill="#000000" stroke="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="24" y="298" id="svg_5" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve"/>
+  <text fill="#000000" stroke="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="212.72384" y="307.66667" id="svg_6" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve" transform="matrix(0.508868, 0, 0, 0.6, -43.2483, 121.6)">1層前のユニット集合</text>
+  <text fill="#000000" stroke="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="902.49018" y="307.66667" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve" transform="matrix(0.508868, 0, 0, 0.6, -43.2483, 121.6)" id="svg_7">1層後のユニット集合</text>
+  <circle fill="#ffffff" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="239.5" cy="137" r="79.69803" id="svg_14"/>
+  <text fill="#000000" stroke="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="560.55473" y="237.66667" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve" transform="matrix(0.508868, 0, 0, 0.6, -43.2483, 121.6)" id="svg_16">着目している層のj番目のユニット</text>
+ </g>
+ <g display="inline">
+  <title>レイヤ 3</title>
+  <circle fill="#ffffff" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="54.5" cy="49" r="26.40076" id="svg_8"/>
+  <circle fill="#ffffff" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="54.5" cy="135" r="26.40076" id="svg_9"/>
+  <circle fill="#ffffff" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="54.5" cy="234" r="26.40076" id="svg_10"/>
+  <circle fill="#ffffff" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="425.5" cy="50" r="26.40076" id="svg_11"/>
+  <circle fill="#ffffff" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="425.5" cy="136" r="26.40076" id="svg_12"/>
+  <circle fill="#ffffff" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" cx="425.5" cy="235" r="26.40076" id="svg_13"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="82" y1="49" x2="100" y2="49" id="svg_26"/>
+  <rect fill="#000000" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="109" y="33" width="45" height="30" id="svg_17" fill-opacity="0"/>
+  <rect fill="#000000" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="109" y="120" width="45" height="30" fill-opacity="0" id="svg_18"/>
+  <rect fill="#000000" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="109" y="218" width="45" height="30" fill-opacity="0" id="svg_19"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m99.13501,53.78318l5,-8.75005l5,8.75005l-10,0z" id="svg_23" transform="rotate(90, 104.135, 49.4082)"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m98.13501,139.78317l5,-8.75005l5,8.75005l-10,0z" transform="rotate(90, 103.135, 135.408)" id="svg_24"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m98.13501,238.78317l5,-8.75005l5,8.75005l-10,0z" transform="rotate(90, 103.135, 234.408)" id="svg_25"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="163" y1="137" x2="153.94461" y2="137" id="svg_30"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="154" y1="47" x2="194" y2="112" id="svg_33"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="155" y1="234" x2="194" y2="162" id="svg_34"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="98" y1="136" x2="83" y2="136" id="svg_27"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="82" y1="234" x2="102.02498" y2="234" id="svg_28"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m186.13501,112.78317l5,-8.75005l5,8.75005l-10,0z" transform="rotate(147.785, 191.135, 108.408)" id="svg_31"/>
+  <circle fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" fill-opacity="0" cx="195" cy="136" r="23.43075" id="svg_20"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m162.13501,141.78317l5,-8.75005l5,8.75005l-10,0z" transform="rotate(90, 167.135, 137.408)" id="svg_29"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m188.13501,168.78317l5,-8.75005l5,8.75005l-10,0z" transform="rotate(26.0835, 193.135, 164.408)" id="svg_32"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="218" y1="134" x2="249.01612" y2="134" id="svg_36"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m247.13501,137.78317l5,-8.75005l5,8.75005l-10,0z" transform="rotate(90, 252.135, 133.408)" id="svg_35"/>
+  <rect fill="#000000" stroke="#000000" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" fill-opacity="0" x="256" y="97" width="42" height="75" id="svg_21"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="300" y1="134" x2="329.01612" y2="134" id="svg_38"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m323.13501,138.78317l5,-8.75005l5,8.75005l-10,0z" transform="rotate(90, 328.135, 134.408)" id="svg_37"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="358" y1="132" x2="405" y2="70" id="svg_39"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="404" y1="217" x2="357" y2="133" id="svg_40"/>
+  <line fill="none" stroke="#000000" stroke-width="2" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x1="399" y1="134" x2="358" y2="134" id="svg_41"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m400.13501,75.78318l5,-8.75005l5,8.75005l-10,0z" transform="rotate(35.5406, 405.135, 71.4082)" id="svg_42"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m390.13501,137.78317l5,-8.75005l5,8.75005l-10,0z" transform="rotate(90, 395.135, 133.408)" id="svg_43"/>
+  <path fill="#000000" stroke="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" d="m398.13501,219.78317l5,-8.75005l5,8.75005l-10,0z" transform="rotate(150.855, 403.135, 215.408)" id="svg_44"/>
+  <text fill="#000000" stroke="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="194" y="144" id="svg_45" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">Σ</text>
+  <text fill="#000000" stroke="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="380" y="80" id="svg_46" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve"  transform="matrix(0.507576, 0, 0, 0.558989, 173.914, 57.002)">重み</text>
+ </g>
+ <g display="inline">
+  <title>レイヤ 4</title>
+  <foreignObject x="80" y="25" width="50" height="50">
+  <span style="font-size: 50%; color: black;">$g_{0p}$</span>
+  </foreignObject>
+  <foreignObject x="80" y="115" width="50" height="50">
+  <span style="font-size: 50%; color: black;">$g_{ip}$</span>
+  </foreignObject>
+  <foreignObject x="80" y="210" width="50" height="50">
+  <span style="font-size: 50%; color: black;">$g_{mp}$</span>
+  </foreignObject>
+
+  <foreignObject x="120" y="15" width="50" height="50">
+  <span style="font-size: 50%; color: black;">$w_{0j}$</span>
+  </foreignObject>
+  <foreignObject x="120" y="105" width="50" height="50">
+  <span style="font-size: 50%; color: black;">$w_{ij}$</span>
+  </foreignObject>
+  <foreignObject x="120" y="200" width="50" height="50">
+  <span style="font-size: 50%; color: black;">$w_{mj}$</span>
+  </foreignObject>
+
+  <foreignObject x="230" y="115" width="50" height="50">
+  <span style="font-size: 50%; color: black;">$h_{jp}$</span>
+  </foreignObject>
+
+  <foreignObject x="270" y="110" width="90" height="50">
+  <span style="font-size: 80%; color: black;">$f$</span>
+  </foreignObject>
+
+  <foreignObject x="335" y="100" width="50" height="50">
+  <span style="font-size: 50%; color: black;">$g_{jp}$</span>
+  </foreignObject>
+ </g>
+</svg>
+                    <!-- }}} -->
+                </section>
+
+                <section>
+                    <p>誤差に基づく学習法を適用すると、学習パターン${\bf x}_p$に対する誤差は出力層のユニット$l$の出力と教師信号$b_{lp}$の2乗和で定義される$$J_p = \frac{1}{2} \sum_l (g_{lp} - b_{lp})^2$$</p>
+                    <p>全学習パターンに対する誤差は$$J = \sum_p J_p$$となり$J$を最小にするように重みを調整する</p>
+                    <p>重みの調整は確率的最急降下法$w_{ij}' = w_{ij} - \rho \frac{\partial J_p}{\partial w_{ij}}$によって行う</p>
+                </section>
+
+                <section>
+                    <p>$\frac{\partial J_p}{\partial w_{ij}}$はユニット$j$とユニット$i$の結合重みを変化させた時の、誤差$J_p$の変化量を表している</p>
+                    <p>ユニット$j$の出力は最終的な出力に影響をあたえるので、誤差$J_p$はユニット$j$の出力$h_{jp} = \sum_i w_{ij} g_{ip}$の関数といえる。<br />よって
+                    $\frac{\partial J_p}{\partial w_{ij}} = \frac{\partial J_p}{\partial h_{jp}} \frac{\partial h_{jp}}{\partial w_{ij}} = \frac{\partial J_p}{\partial h_{jp}} g_{ip} \;\; (\because h_{jp} = \sum_i w_{ij} g_{ip})$</p>
+                </section>
+
+                <section>
+                    <p>$\epsilon_{jp} = \frac{\partial J_p}{\partial h_{jp}}$とおくと、
+                    $$\epsilon_{jp} = \frac{\partial J_p}{\partial g_{jp}} \frac{\partial g_{jp}}{\partial h_{jp}} = \frac{\partial J_p}{\partial g_{jp}} f'(h_{jp}) \;\; (\because g_{jp} = f(h_{jp}))$$</p>
+                    <p>$f$に閾値関数を用いると微分できないので、代わりにシグモイド関数$s(x) = \frac{1}{1 + e^{-x}}$を用いると
+                    $$ f'(h_{jp}) = f(h_{jp})(1 - f(h_{jp})) = g_{jp}(1 - g_{jp}) \;\; (\because s'(x) = s(x)(1 - s(x)))$$</p>
+                    <p>よって、$ \epsilon_{jp} = \frac{\partial J_p}{\partial g_{jp}} g_{jp}(1 - g_{jp})$</p>
+                    <p>$\frac{\partial J_p}{\partial g_{jp}}$はユニット$j$が出力層か中間層かで求め方が異なる</p>
+                </section>
+
+                <section>
+                    <p>ユニット$j$が出力層の場合は$j = l$なので、$J_p = \frac{1}{2} \sum_l (g_{lp} - b_{lp})^2$より
+                    $$ \frac{\partial J_p}{\partial g_{jp}} = g_{jp} - b_{jp} $$</p>
+                    <p>ユニット$j$が中間層の場合は、ユニット$j$からの出力が複数の上位ユニット$k$の入力になっているので足しあわせて
+                    $$ \frac{\partial J_p}{\partial g_{jp}} = \sum_k \frac{\partial J_p}{\partial h_{kp}} \frac{\partial h_{kp}}{\partial g_{jp}} = \sum_k \epsilon_{kp} w_{jk} $$
+                    $$ (\because \epsilon_{jp} = \frac{\partial J_p}{\partial h_{jp}}, \;\; h_{kp} = \sum_i w_{jk} g_{jp}) $$</p>
+                </section>
+
+                <section>
+                    <p>各ユニットにおける誤差の変化量$\epsilon_{jp}$は
+                    $$ \epsilon_{jp} = \left\{ \begin{array}{ll}
+                    (g_{jp} - b_{jp})g_{jp}(1 - g_{jp}) & (出力層)\\
+                    (\sum_k \epsilon_{kp} w_{jk}) g_{jp} (1 - g_{jp}) & (中間層)
+                    \end{array} \right. $$</p>
+                    <p>よって$\frac{\partial J_p}{\partial w_{ij}} = \frac{\partial J_p}{\partial h_{jp}} \frac{\partial h_{jp}}{\partial w_{ij}} = \frac{\partial J_p}{\partial h_{jp}} g_{ip} = \epsilon_{jp} g_{ip}$
+                    を用いて重みを更新していく</p>
+                    <p>重みの更新は一定回数以上繰り返されるか、更新量が一定値以下になれば停止する</p>
+                    <p>確率的最急降下法を用いているので局所解に陥る可能性がある</p>
+                </section>
 			</div>
 
 		</div>
